@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="tr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07131a">
+<meta name="description" content="Simülakron 3000: Gelecekten gelen kaşifin kamera dürbünü, sanal gökyüzü, dijital yakınlaştırma ve zaman simülasyonu.">
+<title>Kaşif Dürbünü 3000 • Simülakron</title>
+<link rel="icon" href="./assets/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="./telescope.css"><script type="module" src="./telescope.js"></script>
+</head><body>
+<div class="shell">
+ <header class="header">
+  <a href="./" class="go-back">← ATLAS</a>
+  <div class="name"><span class="sigil">◈</span><div><b>SIMÜLAKRON <em>3000</em></b><small>ZAMAN MİKROSKOBU • KEŞİF DÜRBÜNÜ</small></div></div>
+  <a href="./time.html" class="go-back">ZAMAN ↗</a>
+ </header>
+ <section class="titlebar">
+  <div><p class="eyebrow"><span class="light"></span> ULTRA ZEKÂ KEŞİF DONANIMI / PROTOTİP</p><h1>Bir bakışla <em>bin çağ.</em></h1><p>Yakınlaştır, gözlemle, hayal et. Gerçek kamera ile sanal zamanı ayırt et.</p></div>
+  <div class="year-stamp">YIL <strong>3000</strong><span>KURGUSAL TEKNOLOJİ</span></div>
+ </section>
+ <main class="layout">
+  <section class="viewer">
+   <div class="visor" id="visor">
+    <div class="fallback" id="fallback"><div class="cosmic"></div><div class="planet"></div><div class="ready">◈ <b>DÜRBÜNÜ BAŞLAT</b><span>Kamera açılana kadar simüle edilmiş keşif ekranı</span></div></div>
+    <video id="livevideo" autoplay playsinline muted></video>
+    <canvas id="overlay" aria-hidden="true"></canvas>
+    <div class="scanlines"></div><div class="reticle"><i class="cross horizontal"></i><i class="cross vertical"></i><span class="cross ring"></span></div>
+    <div class="visor-head"><span class="hud-pill"><span class="blink"></span> <b id="feed-status">SİMÜLASYON</b></span><span id="coords">X 050.0 / Y 050.0</span></div>
+    <div class="visor-left"><span>3000</span><span class="vertline"></span><span id="mode-hud">YERYÜZÜ</span></div>
+    <div class="visor-right"><span class="label">DİJİTAL ZOOM</span><strong id="zoom-hud">1.0×</strong><span id="date-hud">2026</span></div>
+    <div class="visor-foot"><span id="view-note">CANLI KAMERA KAPALI</span><span id="frame-id">SCAN / 0001</span></div>
+    <div id="tap-label" class="tap-label" hidden></div>
+   </div>
+   <div class="buttons">
+    <button id="power" class="power" type="button">◎ <span id="power-label">Kamerayı Başlat</span></button>
+    <button id="flip" type="button" title="Ön/arka kamera">⇄</button>
+    <button id="snap" type="button" title="Keşif fotoğrafı">▣ <span>Fotoğraf</span></button>
+   </div>
+   <div class="warning"><b>GERÇEK × SİMÜLASYON:</b> Yalnızca kameranın yakaladığı görüntü canlıdır. Yıldızlar, geçmiş, gelecek, tarama verileri ve renk filtreleri temsilidir. Dürbün duvarın arkasını veya kameranın çözünürlüğünün ötesindeki detayları göstermez.</div>
+  </section>
+  <aside class="controls">
+   <div class="label">◎ KEŞİF PROTOKOLLERİ</div><h2>Gördüğünün <i>ötesine.</i></h2>
+   <div class="modes" role="group" aria-label="Gözlem modu">
+     <button type="button" class="mode active" data-mode="surface" aria-pressed="true">⌖ <b>Yeryüzü</b><small>Canlı kamera</small></button>
+     <button type="button" class="mode" data-mode="sky" aria-pressed="false">✧ <b>Gökyüzü</b><small>Sanal yıldız atlası</small></button>
+     <button type="button" class="mode" data-mode="micro" aria-pressed="false">⌕ <b>Mikro</b><small>Dijital büyütme</small></button>
+     <button type="button" class="mode" data-mode="time" aria-pressed="false">◷ <b>Zaman</b><small>Dönem katmanı</small></button>
+   </div>
+   <div class="inputrow"><label for="zoom">GÖRÜNTÜ YAKINLAŞTIRMA</label><output id="zoom-val">1.0×</output></div>
+   <input id="zoom" type="range" min="1" max="8" step=".2" value="1" aria-label="Dijital büyütme">
+   <div class="ruler"><span>1×</span><span>4×</span><span>8×</span></div>
+   <div class="inputrow"><label for="years">ZAMAN MERCEĞİ</label><output id="year-val">2026</output></div>
+   <input id="years" type="range" min="0" max="8" step="1" value="5" aria-label="Simülasyon yılı">
+   <div class="ruler"><span>MÖ 12000</span><span>2026</span><span>3000</span></div>
+   <div class="button-strip"><button id="night" type="button" aria-pressed="false">◐ Gece Görüşü</button><button id="grid" type="button" aria-pressed="true">⌗ Izgara Açık</button></div>
+   <div class="guide"><div class="guide-top"><span>✧</span><div><small>KURGUSAL ZAMAN REHBERİ</small><strong>ULTRA ZEKÂ Ω</strong></div></div><p id="guide-text">Kaşif, 3000 yılının dürbününe hoş geldin. Önce gözlem yap, sonra görüntünün hangi kısmının simülasyon olduğunu sorgula.</p><div class="data-row"><b id="info-level">SEVİYE 01 · GÖZLEM</b><b id="origin">GERÇEK KAMERA</b></div></div>
+   <div class="link-grid"><a href="./globe.html">◎ Dünya Küresi ↗</a><a href="./time.html">◷ Zaman Tüneli ↗</a><a href="./magic-window.html">▣ Sihirli Pencere ↗</a></div>
+  </aside>
+ </main>
+ <footer>SIMÜLAKRON / ZAMAN MİKROSKOBU <span>Görüntü işleme cihazda yapılır; kamera akışı sunucuya gönderilmez.</span></footer>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body></html>
