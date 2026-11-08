@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#081620">
+<meta name="description" content="Simülakron Zaman Kaşifi: Tarihten geleceğe yılların içinden geç, 3D ve AR dönem canlandırmalarıyla keşfet.">
+<title>Ultra Zekâ • Zaman Kaşifi</title>
+<link rel="icon" href="./assets/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="./time.css">
+<script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@4.4.0/dist/model-viewer.min.js"></script>
+<script type="module" src="./time.js"></script>
+</head>
+<body>
+<div class="page">
+  <header class="nav">
+    <a href="./" class="back">← ATLAS'A DÖN</a>
+    <strong>◈ SIMÜLAKRON <span>ZAMAN</span></strong>
+    <a href="./globe.html">◎ SİHİRLİ KÜRE</a>
+  </header>
+  <div class="heading">
+    <p class="overline">ULTRA ZEKÂ · ZAMAN YOLCULUĞU SİMÜLATÖRÜ</p>
+    <h1>Zamanın <em>ötesine geç.</em></h1>
+    <p>MÖ 12.000'den 2600'e… Geçmişi araştır, bugünü keşfet, geleceği hayal et.</p>
+  </div>
+  <div class="tripboard">
+    <div class="screen">
+      <div class="screenhead"><span class="signal">●</span><span id="period-marker">ZAMAN NOKTASI 001</span><span class="timecode" id="hero-year">MÖ 12000</span></div>
+      <div class="stage">
+        <model-viewer id="scene3d" src="./assets/prehistoric-scene.gltf" alt="Tarih öncesi 3D mamut ve insan canlandırması" ar ar-modes="quick-look scene-viewer webxr" ar-placement="floor" camera-controls touch-action="pan-y" auto-rotate rotation-per-second="13deg" shadow-intensity=".8" exposure="1.3" camera-orbit="40deg 72deg 3.3m" min-camera-orbit="auto auto 1.3m" max-camera-orbit="auto auto 6m">
+          <button slot="ar-button" class="ar-launch" type="button">⌖ SAHNEYİ ODAMDA GÖR (AR)</button>
+          <div slot="poster" class="loading">3D DÖNEM SAHNESİ HAZIRLANIYOR…</div>
+        </model-viewer>
+        <div class="stage-tag">◈ BİLİMSEL GERÇEK / TEMSİLİ CANLANDIRMA AYRIMI AKTİF</div>
+      </div>
+      <div class="stagefoot"><div><p class="micro" id="period">TARİH ÖNCESİ</p><h2 id="scene-name">Buzul Çağı'nın sonları</h2><p id="scene-summary">Erken insan topluluklarının yaşam dünyasına stilize bir bakış.</p></div><button id="play-scene" type="button">▶ Rehberi Dinle</button></div>
+    </div>
+    <aside class="oracle">
+      <div class="oracle-top"><span class="oracle-sigil">✧</span><div><p>GELECEKTEN GELEN KURGUSAL REHBER</p><h2>ULTRA ZEKÂ <span>Ω</span></h2></div><i>AKTİF</i></div>
+      <p class="voice" id="oracle-message">Zaman akışı açıldı, Kaşif. Görebileceğin her sahnenin kökenini açıklayacağım. Gerçekle simülasyonu birbirine karıştırma.</p>
+      <div class="truth"><span id="truth-icon">◉</span><div><strong id="truth-title">TARİHSEL DAYANAK + REKONSTRÜKSİYON</strong><p id="truth-text">Mamutlar ve insanlar aynı çağlarda yaşadı. Buradaki yüz ve hareketler özgün 3D yorumdur.</p></div></div>
+      <label class="promptlabel" for="ask">ULTRA ZEKÂ'YA BİR ŞEY SOR</label>
+      <div class="ask"><input type="text" id="ask" placeholder="Örn. Göbeklitepe, Mamut, 2100..." maxlength="110"><button type="button" id="ask-send" aria-label="Soruyu gönder">➤</button></div>
+      <p class="disclaimer">Bu sürümde rehber, yerel tarih kataloğundan cevap veren senaryolu bir karakterdir. Canlı yapay zekâ, gelecekten bilgi veya geleceği kesin bilme iddiası yoktur.</p>
+    </aside>
+  </div>
+  <section class="controls">
+    <div class="ctlhead"><div><p class="overline">ZAMANDA GEZİN</p><h2>Yolculuk rotan</h2></div><button id="replay" type="button">◈ Tüneli Yeniden Aç</button></div>
+    <div class="range"><span class="end">MÖ 12000</span><input id="years" type="range" min="0" max="14" step="1" value="0" aria-label="Zaman dilimi"><span class="end">2600</span></div>
+    <div class="stop-grid" id="stops"></div>
+    <div class="reality-legend"><span><b class="green"></b> Tarihsel olay / olgu</span><span><b class="amber"></b> Yorumsal 3D canlandırma</span><span><b class="violet"></b> Gelecek kurgusu</span></div>
+  </section>
+  <div class="bottom"><a href="./globe.html">◎ Sihirli Küre <span>↗</span></a><a href="./#history">◷ Tarih Ansiklopedisi <span>↗</span></a><a href="./magic-window.html">▣ Sihirli Pencere <span>↗</span></a></div>
+  <footer>SIMÜLAKRON ZAMAN KAŞİFİ · 2026 <span>Geçmiş kanıtlarla incelenir. Gelecek senaryolarla keşfedilir.</span></footer>
+</div>
+</body>
+</html>
