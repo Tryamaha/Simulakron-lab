@@ -10,9 +10,11 @@
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="./portal.css">
+<link rel="stylesheet" href="./tunnel.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous">
 <script defer src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous"></script>
 <script type="module" src="./portal.js"></script>
+<script defer src="./tunnel.js"></script>
 </head>
 <body>
 <div id="app" class="app">
@@ -21,7 +23,7 @@
       <span class="emblem">◈</span>
       <span><strong>SIMÜLAKRON <span>ATLAS</span></strong><small>TARİHİN VE DÜNYANIN İZİNDE</small></span>
     </a>
-    <div class="top-actions"><span class="edition">DİJİTAL KEŞİF PLATFORMU</span><a href="./lab.html" class="ar-quick">◈ <span>3D Zaman Makinesi</span></a></div>
+    <div class="top-actions"><span class="edition">DİJİTAL KEŞİF PLATFORMU</span><a href="./time.html" class="ar-quick">◈ <span>Zaman Kaşifi</span></a></div>
   </header>
   <nav class="mainnav" aria-label="Ana bölümler">
     <button class="navbtn active" type="button" data-page="home" aria-current="page"><span>⌂</span> Keşfet</button>
@@ -56,9 +58,10 @@
       <div class="feature-grid">
         <button type="button" class="feature feature-history" data-goto="history"><span class="feature-num">01 / TARİH</span><span class="feature-symbol">⌛</span><strong>Zamanın izinde</strong><span>İlk uygarlıklar, imparatorluklar, bilim ve modern dünya.</span><em>88 MADDE ↗</em></button>
         <button type="button" class="feature feature-atlas" data-goto="atlas"><span class="feature-num">02 / COĞRAFYA</span><span class="feature-symbol">◉</span><strong>Gezegeni tanı</strong><span>Ülkeler, dağlar, nehirler, denizler ve tarihî rotalar.</span><em>105 KONUM ↗</em></button>
-        <a class="feature feature-ar" href="./lab.html"><span class="feature-num">03 / 3D DENEYİM</span><span class="feature-symbol">◈</span><strong>Geçmişi canlandır</strong><span>Mamutu ve ilk insanı telefonunun kamerasında gör.</span><em>3D ZAMAN MAKİNESİ ↗</em></a>
+        <a class="feature feature-ar" href="./time.html"><span class="feature-num">03 / 3D DENEYİM</span><span class="feature-symbol">◈</span><strong>Geçmişi canlandır</strong><span>MÖ 12.000’den 2600’e, dönem sahneleriyle AR zaman yolculuğu.</span><em>ZAMAN TÜNELİ + AR ↗</em></a>
       </div>
       <div class="section-head second"><div><p class="eyebrow">EDİTÖRÜN SEÇTİKLERİ</p><h2>Merak uyandıran keşifler</h2></div></div>
+      <div class="new-experiences"><a href="./globe.html"><span>◎</span><strong>Sihirli Dünya Küresi</strong><small>3D gezegen · tarih ve coğrafya</small><b>↗</b></a><a href="./time.html"><span>◷</span><strong>Zaman Kaşifi</strong><small>15 dönem · AR canlandırmalar</small><b>↗</b></a><a href="./telescope.html"><span>⌾</span><strong>3000 Yılı Kaşif Dürbünü</strong><small>Kamera · gökyüzü · zaman merceği</small><b>↗</b></a><a href="./magic-window.html"><span>▣</span><strong>Sihirli Pencere</strong><small>Fotoğrafla illüzyon · gerçek X-Ray değil</small><b>↗</b></a></div>
       <div id="featured" class="spotlight-grid" aria-live="polite">
         <article class="spotlight preload"><span>ANADOLU TARİHİ</span><h3>Göbeklitepe</h3><p>Binlerce yıl öncesinden günümüze kalan taş yapılar.</p></article>
         <article class="spotlight preload"><span>DÜNYA COĞRAFYASI</span><h3>Amazon Nehri</h3><p>Gezegenin en büyük debili akarsu sistemi.</p></article>
@@ -97,7 +100,7 @@
     </section>
   </main>
 
-  <footer class="footer"><div><span class="footer-logo">◈ SIMÜLAKRON ATLAS</span><p>İnsanlığın hikâyesini ve Dünya'nın coğrafyasını keşfet.</p></div><div><a href="./lab.html">3D Zaman Makinesi</a><a href="https://tr.wikipedia.org/" target="_blank" rel="noopener">Ek okumalar</a><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">Harita verisi</a></div><small>Küratörlü eğitim kataloğu · Konumlar temsili · 2026</small></footer>
+  <footer class="footer"><div><span class="footer-logo">◈ SIMÜLAKRON ATLAS</span><p>İnsanlığın hikâyesini ve Dünya'nın coğrafyasını keşfet.</p></div><div><a href="./time.html">Zaman Kaşifi</a><a href="./globe.html">Sihirli Küre</a><a href="./telescope.html">Kaşif Dürbünü</a><a href="https://tr.wikipedia.org/" target="_blank" rel="noopener">Ek okumalar</a><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">Harita verisi</a></div><small>Küratörlü eğitim kataloğu · Konumlar temsili · 2026</small></footer>
 </div>
 
 <div id="detail-backdrop" class="detail-backdrop" hidden></div>
