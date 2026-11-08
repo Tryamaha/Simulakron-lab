@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#06131c">
+<meta name="description" content="Simülakron Sihirli Küre: Dünya'yı 3D döndür, tarihî olayları ve coğrafi konumları keşfet.">
+<title>Sihirli Dünya Küresi • Simülakron Atlas</title>
+<link rel="icon" href="./assets/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="./globe.css">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.182.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.182.0/examples/jsm/"}}</script>
+<script type="module" src="./globe.js"></script>
+</head>
+<body>
+<div class="layout">
+<header class="top">
+  <a class="back" href="./">← <span>ATLAS'A DÖN</span></a>
+  <a href="./globe.html" class="brand">◈ SIMÜLAKRON <b>KÜRE</b></a>
+  <a href="./magic-window.html" class="window-link">▣ Sihirli Pencere</a>
+</header>
+<section class="intro">
+  <div class="eyebrow"><i></i> ETKİLEŞİMLİ 3D DÜNYA</div>
+  <h1>Avucunda bir <em>gezegen.</em></h1>
+  <p>Dünya'yı döndür. Bir yer seç. Tarihe ve coğrafyaya dokun.</p>
+</section>
+<main class="workspace">
+  <section class="sphere-panel">
+    <div id="globe" role="img" aria-label="Dokunarak çevrilen 3D dünya küresi. Haritadaki konumlara dokunarak bilgi açabilirsiniz.">
+      <div class="load-state" id="load-state"><div class="spinner"></div><p>SIHIRLI KÜRE HAZIRLANIYOR</p><small>3D Dünya ve keşif noktaları yükleniyor…</small></div>
+      <div class="gridback"></div>
+      <div class="space-dots"></div>
+      <div class="labeltop"><span class="live"><i></i> DÜNYA / 3D</span><span id="mode-label">COĞRAFYA + TARİH</span></div>
+      <div class="compass" aria-hidden="true"><span>N</span><b>✦</b><span>S</span></div>
+      <div class="place-label" id="hover-label" hidden></div>
+      <div class="orbit-hint">↔ DÖNDÜR &nbsp; • &nbsp; ⤢ YAKINLAŞTIR &nbsp; • &nbsp; ◉ SEÇ</div>
+    </div>
+    <div class="globe-controls">
+      <button type="button" id="rotate-toggle" aria-pressed="true">◷ Otomatik dönüş <b>AÇIK</b></button>
+      <button type="button" id="zoom-in" aria-label="Yakınlaştır">＋</button>
+      <button type="button" id="zoom-out" aria-label="Uzaklaştır">－</button>
+      <button type="button" id="reset-globe">↺ Sıfırla</button>
+    </div>
+  </section>
+  <aside class="side">
+    <div class="side-top"><p class="eyebrow">DÜNYA KEŞİF PANELİ</p><h2>Her nokta bir hikâye.</h2><p id="point-counter">Atlas konumları hazırlanıyor...</p></div>
+    <div class="searchline"><span>⌕</span><label class="sr-only" for="globe-search">Yer veya tarih ara</label><input id="globe-search" type="search" placeholder="Ülke, dağ, olay, şehir ara…" autocomplete="off"></div>
+    <div class="pills" role="group" aria-label="Veri türü">
+      <button class="pill active" data-kind="all" aria-pressed="true" type="button">Tümü</button>
+      <button class="pill" data-kind="geo" aria-pressed="false" type="button">◎ Coğrafya</button>
+      <button class="pill" data-kind="history" aria-pressed="false" type="button">◷ Tarih</button>
+    </div>
+    <div class="legend"><span><i class="pin geo"></i> COĞRAFYA</span><span><i class="pin hist"></i> TARİH</span><span><i class="pin selected"></i> SEÇİLİ</span></div>
+    <div class="result-h"><span>KEŞFEDİLECEK YERLER</span><span id="results-count">0</span></div>
+    <div id="globe-results" class="results" role="list"></div>
+    <div id="selected-card" class="selected-card">
+      <p class="card-label">◈ SİHİRLİ KÜRE</p>
+      <h3>Yeryüzünü keşfet</h3>
+      <p>Bir noktaya dokunduğunda buradan tarihini, konumunu ve özelliklerini öğrenebilirsin.</p>
+    </div>
+  </aside>
+</main>
+<div class="tools">
+  <a href="./#atlas" class="tool"><span>◎</span><div><strong>Detaylı Dünya Atlası</strong><small>Harita üzerinde daha fazla yakınlaş</small></div><b>↗</b></a>
+  <a href="./lab.html" class="tool"><span>◈</span><div><strong>3D Zaman Makinesi</strong><small>Mamut ve tarih öncesi insan deneyimi</small></div><b>↗</b></a>
+  <a href="./magic-window.html" class="tool"><span>▣</span><div><strong>Sihirli Pencere</strong><small>Fotoğrafla duvar arkası illüzyonu</small></div><b>↗</b></a>
+</div>
+<footer>
+  <span>SIMÜLAKRON KÜRE · 2026</span>
+  <span>Temsilî işaretler · Dünya yüzey görseli genel amaçlıdır; canlı uydu veya gerçek zamanlı görüntü değildir.</span>
+</footer>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body></html>
