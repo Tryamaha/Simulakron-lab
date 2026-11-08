@@ -10,6 +10,7 @@ GitHub Pages: **https://tryamaha.github.io/Simulakron-lab/**
 |---|---|---|
 | Ana atlas | [Ana Sayfa](./index.html) | 88 tarih maddesi, 108 coğrafya kaydı, filtreler, interaktif harita, bilgi testi |
 | Sihirli Küre | [globe.html](./globe.html) | Dönüş yapan 3D Dünya, temsilî coğrafya ve tarih noktaları |
+| AR Zaman Küresi | [globe-ar.html](./globe-ar.html) | Dünya küresini veya tarihsel ve geleceğe ait stilize sahneleri AR ile yerleştirme |
 | Zaman Kaşifi | [time.html](./time.html) | MÖ 12.000'den 2600'e 15 durak ve 3D dönem sahneleri |
 | 3000 Dürbünü | [telescope.html](./telescope.html) | Canlı kamera, 1–8× dijital görüntü büyütme, gece filtresi, sanal gökyüzü, yıl merceği |
 | Sihirli Pencere | [magic-window.html](./magic-window.html) | Kamera + kullanıcının seçtiği fotoğraf ile dairesel duvar arkası illüzyonu |
