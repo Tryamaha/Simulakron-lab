@@ -17,3 +17,8 @@
 @keyframes tg-towards{0%{opacity:0;transform:translate(-50%,-50%) translateZ(-950px) rotate(0deg) scale(.5)}18%{opacity:.8}80%{opacity:.6}100%{opacity:0;transform:translate(-50%,-50%) translateZ(450px) rotate(90deg) scale(1.7)}}
 @keyframes tg-rotate{to{transform:rotate(360deg)}}@keyframes tg-blur{0%{opacity:0;transform:rotate(var(--rot)) scaleY(.15)}50%{opacity:var(--op)}100%{opacity:0;transform:rotate(var(--rot)) scaleY(3)}}
 @media(prefers-reduced-motion:reduce){.tg-ring,.tg-star,.tg-background{animation:none!important}.tg-ring{opacity:.15;transform:translate(-50%,-50%) scale(.9)}}
+
+
+.tunnel-fab{position:fixed;z-index:50;right:16px;bottom:calc(18px + env(safe-area-inset-bottom));background:#e0b677;border:1px solid #edd1a0;color:#142c34;border-radius:100px;padding:13px 18px;box-shadow:0 7px 28px #0008;font-size:12px;font-weight:900;letter-spacing:.05em;cursor:pointer}
+.tunnel-fab:hover{filter:brightness(1.1)}
+@media(max-width:580px){.tunnel-fab{font-size:11px;padding:11px 13px;right:10px;bottom:calc(12px + env(safe-area-inset-bottom))}}
