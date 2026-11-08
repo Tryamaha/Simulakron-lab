@@ -17,4 +17,4 @@ function showGate(){
 }
 const query=new URLSearchParams(location.search);
 if(query.get("tunnel")==="1"){history.replaceState(null,"",location.pathname+location.hash);showGate();}
-else{const openButton=document.createElement("button");openButton.type="button";openButton.className="tunnel-fab";openButton.textContent="◈ ZAMAN KAPISI";openButton.title="Zaman tünelini aç";openButton.addEventListener("click",showGate);document.body.appendChild(openButton);}
+else{let firstVisit=true;try{firstVisit=sessionStorage.getItem("simulakron-intro-seen")!=="1";if(firstVisit)sessionStorage.setItem("simulakron-intro-seen","1")}catch(e){}if(firstVisit)showGate();const openButton=document.createElement("button");openButton.type="button";openButton.className="tunnel-fab";openButton.textContent="◈ ZAMAN KAPISI";openButton.title="Zaman tünelini aç";openButton.addEventListener("click",showGate);document.body.appendChild(openButton);}
