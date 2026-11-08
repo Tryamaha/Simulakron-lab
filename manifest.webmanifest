@@ -1,0 +1,18 @@
+{
+  "name": "Simülakron Lab — AR Deneyimi",
+  "short_name": "Simülakron",
+  "description": "Mamut ve ilk insan ile kamera ve gerçek AR deneyimi",
+  "lang": "tr",
+  "start_url": "./",
+  "display": "standalone",
+  "theme_color": "#0a1619",
+  "background_color": "#0a1619",
+  "icons": [
+    {
+      "src": "./assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
