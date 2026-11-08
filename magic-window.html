@@ -1,0 +1,67 @@
+<!doctype html><html lang="tr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b2025"><title>Simülakron • Sihirli Pencere</title><meta name="description" content="Canlı kamera görüntüsü üzerinde daha önce çekilmiş fotoğrafla duvar arkası illüzyonu. Gerçek X-Ray değildir.">
+<style>
+:root{color-scheme:dark;font-family:system-ui,-apple-system,sans-serif;background:#081a21;color:#f4f0e1}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at top,#224850,#081a21 75%)}a{color:#dce8e4;text-decoration:none}button,input{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid #e3b883;outline-offset:3px}.shell{max-width:910px;margin:auto;padding:0 16px 40px}header{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:21px 0;border-bottom:1px solid #3c5960}header strong{font-size:19px}header strong b{color:#dbb17e}header a{font-size:12px;font-weight:800}.heading{padding:29px 0 21px}.eyebrow{font-size:10px;letter-spacing:.18em;color:#a2daca;font-weight:800;margin:0 0 9px}.heading h1{font-size:clamp(30px,5vw,46px);letter-spacing:-.065em;margin:0}.heading h1 em{font-style:normal;color:#ddb17e}.heading p:last-child{color:#b1ccc9;font-size:13px;line-height:1.7}.frame{border:1px solid #678c83;border-radius:17px;overflow:hidden;background:#0d2732}.view{position:relative;overflow:hidden;aspect-ratio:5/4;max-height:650px;touch-action:none;background:radial-gradient(ellipse at center,#476e70,#132d39 65%);--x:50%;--y:50%;--radius:115px}.view video,.view .demo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.view video{display:none}.demo{display:grid;place-items:center;background:radial-gradient(circle at 40% 40%,#6c7771,#243d45)}.demo span{padding:15px;border:1px solid #8db4a1;border-radius:8px;color:#e3ece0;background:#18323ad9;font-size:12px;text-align:center}.behind{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 32%,#8dbbb6,#42759a 47%,#1d5146 70%,#152e2c);clip-path:circle(var(--radius) at var(--x) var(--y));background-size:cover;background-position:center;pointer-events:none}.behind:before{content:"ÖRNEK SAHNE • GERÇEK GÖRÜNTÜ DEĞİL";position:absolute;left:10px;right:10px;bottom:13px;color:#fdf6dc;font-size:11px;font-weight:900;text-shadow:0 1px 5px #0008;letter-spacing:.07em;text-align:center}.behind.has-image:before{content:"ÖNCEDEN ÇEKİLMİŞ FOTOĞRAF"}.window-ring{position:absolute;left:var(--x);top:var(--y);width:calc(var(--radius)*2);height:calc(var(--radius)*2);border:2px solid #e4c795;box-shadow:0 0 0 2px #163b40,0 0 45px #97e9c05c,inset 0 0 34px #abeec73a;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none}.cross{position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%);font-size:27px;font-weight:200;color:#eaffd9;text-shadow:0 2px 8px #000;pointer-events:none}.view-head,.view-foot{position:absolute;left:15px;right:15px;z-index:2;display:flex;justify-content:space-between;gap:10px;color:#ecf5dc;font-size:10px;letter-spacing:.09em;text-shadow:0 1px 4px #000}.view-head{top:15px}.view-foot{bottom:15px}.frame-bottom{padding:14px;display:flex;align-items:center;gap:9px}.frame-bottom button{padding:13px 15px;border:1px solid #708e87;border-radius:8px;background:#24454c;color:#eff3e6;font-size:12px;font-weight:800}.frame-bottom #camera{flex:1;background:#dbb179;color:#173239;border-color:#dbb179}.info{padding:16px;margin-top:13px;background:#102d36;border:1px solid #516f6e;border-radius:10px;color:#cee1d7;font-size:13px;line-height:1.75}.info strong{color:#f2c58a}.panel{margin-top:15px;padding:21px;background:#132e36;border:1px solid #3e6168;border-radius:12px}.panel h2{margin:0 0 15px;font-size:19px}.steps{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.upload{display:inline-flex;align-items:center;gap:9px;padding:13px 15px;background:#e0b47b;color:#17343d;font-weight:800;border-radius:8px;font-size:12px;cursor:pointer}.upload input{display:none}.steps button{border:1px solid #517876;background:#24454d;color:#e5eee4;border-radius:8px;padding:12px;font-size:12px;font-weight:800}.bar{display:flex;align-items:center;gap:14px;margin-top:23px}.bar label{white-space:nowrap;font-size:11px;color:#ceddd8;font-weight:800}.bar input{flex:1;accent-color:#e0b47b;min-width:0}.bar output{color:#e2b37e;font-weight:800}.instruction{font-size:11px;color:#9bb8b5;line-height:1.7;margin:16px 0 0}.links{margin:22px 0;display:flex;justify-content:space-between;flex-wrap:wrap;gap:9px}.links a{font-size:13px;background:#183740;border:1px solid #43656a;padding:13px;border-radius:9px}footer{border-top:1px solid #34545d;padding:21px 0;color:#7ba2a3;font-size:11px}@media(max-width:580px){.shell{padding:0 9px 25px}header strong{font-size:14px}.view{aspect-ratio:4/5}.frame-bottom button{font-size:10px;padding:11px 9px}.bar{gap:7px}.bar label{font-size:10px}.links a{flex:1;text-align:center}}
+</style></head><body>
+<div class="shell">
+<header><a href="./">← ATLAS</a><strong>◈ SIMÜLAKRON <b>SİHİRLİ PENCERE</b></strong><a href="./telescope.html">3000 DÜRBÜNÜ ↗</a></header>
+<section class="heading"><p class="eyebrow">GERÇEKLİK × ÖNCEDEN ÇEKİLMİŞ GÖRÜNTÜ</p><h1>Duvarın <em>ötesi</em> gibi.</h1><p>Telefonuna bir “sihirli pencere” aç. Görülen şey duvarın arkasının canlı görüntüsü değil, seçtiğin fotoğrafın dijital bindirmesidir.</p></section>
+<div class="frame">
+ <div class="view" id="view">
+   <div class="demo" id="demo"><span>Kamera kapalı · Deneysel sahne</span></div>
+   <video id="video" playsinline autoplay muted></video>
+   <div class="behind" id="behind"></div><div class="window-ring"></div><div class="cross">＋</div>
+   <div class="view-head"><span>◉ <b id="cam-label">DEMO / SİMÜLASYON</b></span><span>SIMULAKRON WINDOW</span></div>
+   <div class="view-foot"><span>◉ FOTOĞRAF BİNDİRME</span><span id="point">X 50 / Y 50</span></div>
+ </div>
+ <div class="frame-bottom"><button id="camera" type="button">◎ Kamerayı Başlat</button><button id="flip" type="button">⇄ Kamera</button><button id="capture" type="button">▣ Fotoğraf</button></div>
+</div>
+<div class="info"><strong>Bu gerçek X-Ray veya duvar arkası görüntüleme değildir.</strong> Telefon kamerası opak bir duvarın ötesini göremez. Sihirli pencere yalnızca daha önce çekilmiş ve senin seçtiğin fotoğrafı canlı görüntünün üzerine ekleyerek bir illüzyon oluşturur.</div>
+<div class="panel"><h2>İllüzyonu tasarla</h2>
+<div class="steps"><label class="upload">▣ Arka Taraf Fotoğrafı Seç<input id="photo" type="file" accept="image/*"></label><button id="reset" type="button">↺ Örnek Sahne</button></div>
+<div class="bar"><label for="radius">PENCERE ÇAPI</label><input type="range" id="radius" min="35" max="230" value="115"><output id="radius-label">230 px</output></div>
+<div class="bar"><label for="opacity">GÖRÜNTÜ SAYDAMLIĞI</label><input type="range" id="opacity" min="25" max="100" value="100"><output id="opacity-label">%100</output></div>
+<p class="instruction">Duvarın öteki tarafından bir fotoğraf çekebilir veya galerinden seçebilirsin. Sonra kamerayı duvara çevir ve ekrana dokunarak pencereyi hareket ettir. Fotoğraf cihazından sunucuya gönderilmez.</p></div>
+<div class="links"><a href="./globe.html">◎ Sihirli Dünya Küresi ↗</a><a href="./time.html">◷ Zaman Kaşifi ↗</a></div>
+<footer>SIMÜLAKRON · GÖRSEL İLLÜZYON LABORATUVARI · 2026</footer>
+</div>
+<script>
+const $=id=>document.getElementById(id),v=$("view"),video=$("video"),layer=$("behind");
+let stream=null,front=false,img=null,objectURL=null,radius=115,alpha=1,x=.5,y=.5;
+let wx=1,wy=1;function style(){v.style.setProperty("--radius",radius+"px");v.style.setProperty("--x",(x*100)+"%");v.style.setProperty("--y",(y*100)+"%");layer.style.opacity=alpha;$("radius-label").textContent=radius*2+" px";$("opacity-label").textContent="%"+Math.round(alpha*100)}
+function coords(e){let r=v.getBoundingClientRect();x=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width));y=Math.max(0,Math.min(1,(e.clientY-r.top)/r.height));$("point").textContent="X "+Math.round(x*100)+" / Y "+Math.round(y*100);style()}
+v.addEventListener("pointerdown",e=>{v.setPointerCapture?.(e.pointerId);coords(e)});
+v.addEventListener("pointermove",e=>{if(e.buttons||e.pressure>0)coords(e)});
+$("radius").addEventListener("input",e=>{radius=Number(e.target.value);style()});
+$("opacity").addEventListener("input",e=>{alpha=Number(e.target.value)/100;style()});
+function toast(s){alert(s)}
+async function stop(){if(stream)stream.getTracks().forEach(t=>t.stop());stream=null;video.pause();video.srcObject=null;video.style.display="none";$("demo").style.display="grid";$("cam-label").textContent="DEMO / SİMÜLASYON";$("camera").textContent="◎ Kamerayı Başlat"}
+async function camera(){if(stream){await stop();return}
+try{stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:front?"user":"environment"}},audio:false});video.srcObject=stream;await video.play();video.style.display="block";video.style.transform=front?"scaleX(-1)":"none";$("demo").style.display="none";$("cam-label").textContent="CANLI KAMERA + FOTOĞRAF";$("camera").textContent="◎ Kamerayı Kapat";}
+catch(err){console.error(err);await stop();toast("Kamera açılamadı. Safari'de kamera iznini ve HTTPS bağlantısını kontrol et.")}}
+$("camera").addEventListener("click",camera);$("flip").addEventListener("click",async()=>{front=!front;if(stream){await stop();await camera()}});
+$("photo").addEventListener("change",e=>{
+ const file=e.target.files?.[0];if(!file)return;
+ if(!file.type.startsWith("image/")){toast("Görüntü dosyası seç.");return}
+ if(objectURL)URL.revokeObjectURL(objectURL);objectURL=URL.createObjectURL(file);
+ const image=new Image();image.onload=()=>{img=image;layer.style.backgroundImage='url("'+objectURL+'")';layer.classList.add("has-image")};image.onerror=()=>toast("Fotoğraf açılamadı.");image.src=objectURL;
+});
+$("reset").addEventListener("click",()=>{img=null;layer.style.backgroundImage="";layer.classList.remove("has-image");$("photo").value="";if(objectURL)URL.revokeObjectURL(objectURL);objectURL=null});
+function cover(c,im,W,H,flip=false){if(!im)return;const iw=im.videoWidth||im.naturalWidth,ih=im.videoHeight||im.naturalHeight;if(!iw||!ih)return;const m=Math.max(W/iw,H/ih),ww=iw*m,hh=ih*m;c.save();if(flip){c.translate(W,0);c.scale(-1,1)}c.drawImage(im,(W-ww)/2,(H-hh)/2,ww,hh);c.restore()}
+$("capture").addEventListener("click",async()=>{
+ const box=v.getBoundingClientRect(),W=Math.round(box.width*2),H=Math.round(box.height*2),c=document.createElement("canvas");c.width=W;c.height=H;const g=c.getContext("2d");
+ let fill=g.createLinearGradient(0,0,W,H);fill.addColorStop(0,"#536b68");fill.addColorStop(1,"#1a3940");g.fillStyle=fill;g.fillRect(0,0,W,H);
+ if(stream&&video.readyState>=2)cover(g,video,W,H,front);
+ g.save();g.beginPath();g.arc(x*W,y*H,radius*2,0,Math.PI*2);g.clip();g.globalAlpha=alpha;
+ if(img)cover(g,img,W,H);else{const a=g.createRadialGradient(W/2,H/3,5,W/2,H/2,W);a.addColorStop(0,"#a8d1cd");a.addColorStop(1,"#105669");g.fillStyle=a;g.fillRect(0,0,W,H)}g.restore();
+ g.strokeStyle="#ecd29b";g.lineWidth=4;g.beginPath();g.arc(x*W,y*H,radius*2,0,Math.PI*2);g.stroke();
+ g.fillStyle="#0b253fd9";g.fillRect(0,H-44,W,44);g.fillStyle="#edd5b0";g.font="bold 15px monospace";g.fillText("SIMULAKRON · FOTOĞRAF BİNDİRME / GERÇEK X-RAY DEĞİL",12,H-15);
+ const blob=await new Promise(ok=>c.toBlob(ok,"image/png"));if(!blob){toast("Fotoğraf oluşturulamadı");return}
+ const file=new File([blob],"sihirli-pencere.png",{type:"image/png"});
+ if(navigator.canShare?.({files:[file]})&&navigator.share){try{await navigator.share({files:[file],title:"Sihirli Pencere"});return}catch(e){if(e.name==="AbortError")return}}
+ const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="sihirli-pencere.png";a.click();setTimeout(()=>URL.revokeObjectURL(url),5000)
+});
+window.addEventListener("pagehide",()=>{if(stream)stream.getTracks().forEach(t=>t.stop());if(objectURL)URL.revokeObjectURL(objectURL)});
+style();
+</script></body></html>
