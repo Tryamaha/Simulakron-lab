@@ -49,7 +49,7 @@ document.querySelectorAll(".mode").forEach(btn=>btn.addEventListener("click",()=
  $("mode-hud").textContent={surface:"YERYÜZÜ",sky:"GÖKYÜZÜ",micro:"MİKRO",time:"ZAMAN"}[s.mode];
  if(s.mode==="micro"&&s.zoom<2){s.zoom=2;videoStyle()}guide();
 }));
-$("night").addEventListener("click",()=>{s.night=!s.night;$("night").setAttribute("aria-pressed",String(s.night));$("night").textContent=s.night?"◐ Gece Görüşü Açık":"◐ Gece Görüşü";videoStyle();guide()});
+$("night").addEventListener("click",()=>{s.night=!s.night;$("night").setAttribute("aria-pressed",String(s.night));$("night").textContent=s.night?"◐ Yeşil Filtre Açık":"◐ Yeşil Görüntü Filtresi";videoStyle();guide()});
 $("grid").addEventListener("click",()=>{s.grid=!s.grid;$("grid").setAttribute("aria-pressed",String(s.grid));$("grid").textContent=s.grid?"⌗ Izgara Açık":"⌗ Izgara Kapalı"});
 function label(text,y,color="#afefd2"){
  ctx.font="bold "+(w<400?9:11)+"px monospace";const len=Math.min(w-25,ctx.measureText(text).width+17);
