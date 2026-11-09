@@ -18,3 +18,21 @@
 @media(max-width:740px){.science-time{padding:17px 12px}.st-grid{grid-template-columns:1fr}.st-card{padding:14px}.st-title h2{font-size:23px}.st-num b{font-size:14px}}
 /* Markers correspond to physical calendar-year positions, not equal event spacing. */
 .st-axis-label{position:relative;height:16px;display:block}.st-axis-label span{position:absolute;top:0;white-space:nowrap}.st-axis-label span:first-child{left:0}.st-axis-label span:nth-child(2){right:6.5%}.st-axis-label span:last-child{right:0}
+
+
+/* v3: evidence-first stage. Historic humans are NOT invented as low-poly toys. */
+.evidence-stage{height:440px;overflow:hidden;background:radial-gradient(ellipse at 50% 56%,#225265 0,#0b283a 47%,#051620 83%)!important;isolation:isolate}
+.evidence-stage:after{content:"";position:absolute;inset:0;pointer-events:none;z-index:1;background:repeating-radial-gradient(ellipse at 50% 47%,transparent 0 41px,#8dcfcb13 42px,#afd2ba05 44px);mix-blend-mode:screen}
+.archive-ray{position:absolute;left:50%;top:43%;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,#beaf8068 0,#7bafb52c 12%,#32617816 42%,transparent 70%);transform:translate(-50%,-50%);filter:blur(15px)}
+.archive-orbit{position:absolute;left:50%;top:43%;width:min(72%,390px);height:330px;border:1px solid #8fc6bd6e;border-radius:45% 55% 54% 46%;transform:translate(-50%,-50%) rotate(-28deg);box-shadow:inset 0 0 19px #a8f5ce19,0 0 18px #a8f5ce18;animation:archive-spin 30s linear infinite}
+.archive-orbit.orbit-b{width:min(58%,275px);height:350px;border-color:#d6ae875c;transform:translate(-50%,-50%) rotate(53deg);animation-duration:47s;animation-direction:reverse}
+.archive-orbit.orbit-c{width:min(42%,205px);height:250px;border-style:dashed;border-color:#9cd3cb5c;animation-duration:62s}
+.archive-crosshair{position:absolute;left:50%;top:43%;transform:translate(-50%,-50%);color:#e4c79e;font-size:86px;text-shadow:0 0 35px #efd2a39a;opacity:.48}
+.era-display{position:absolute;z-index:2;left:0;right:0;top:26%;display:flex;flex-direction:column;align-items:center;text-align:center;pointer-events:none;text-shadow:0 2px 20px #06151fc7;gap:9px}
+.era-display p{color:#b6d5cf;font-size:11px;letter-spacing:.17em;font-weight:800;margin:0}
+.era-display strong{font:800 clamp(34px,6vw,62px) Manrope,sans-serif;letter-spacing:-.055em;color:#f0c78e}
+.era-display span{border:1px solid #97b5a8;color:#bfe1ce;padding:7px 10px;background:#113544c2;border-radius:6px;font-size:9px;letter-spacing:.09em;font-weight:800}
+.chrono-open{position:absolute;bottom:60px;left:50%;transform:translateX(-50%);z-index:4;white-space:nowrap;padding:14px 18px;border-radius:8px;border:1px solid #f5d09d;background:#e5b77b;color:#12313b;font-size:12px;font-weight:900;box-shadow:0 10px 24px #0008}
+@keyframes archive-spin{0%{transform:translate(-50%,-50%) rotate(0deg)}100%{transform:translate(-50%,-50%) rotate(360deg)}}
+@media(max-width:600px){.evidence-stage{height:340px}.archive-orbit{height:270px}.archive-orbit.orbit-b{height:300px}.era-display{top:23%}.era-display strong{font-size:37px}.chrono-open{font-size:10px;padding:12px}}
+@media(prefers-reduced-motion:reduce){.archive-orbit{animation:none!important}}
