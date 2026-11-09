@@ -16,3 +16,5 @@
 .st-slider{display:flex;justify-content:space-between;gap:8px}.st-slider output{font-weight:800;color:#f1c28a}.st-card input[type=range]{display:block;width:100%;margin:20px 0 7px;accent-color:#e1b77c}
 #st-diagram{width:100%;display:block;max-height:270px}.st-note{border-left:3px solid #e6bc82;padding:13px 16px;background:#11313b;color:#bcd4d3;font-size:12px;line-height:1.75}.st-links{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
 @media(max-width:740px){.science-time{padding:17px 12px}.st-grid{grid-template-columns:1fr}.st-card{padding:14px}.st-title h2{font-size:23px}.st-num b{font-size:14px}}
+/* Markers correspond to physical calendar-year positions, not equal event spacing. */
+.st-axis-label{position:relative;height:16px;display:block}.st-axis-label span{position:absolute;top:0;white-space:nowrap}.st-axis-label span:first-child{left:0}.st-axis-label span:nth-child(2){right:6.5%}.st-axis-label span:last-child{right:0}
