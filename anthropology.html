@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b1b22">
+<meta name="description" content="Simülakron Bilimsel Antropoloji: yüksek kaliteli 3D anatomik örnek, kaynak lisansı ve yüz rekonstrüksiyonunun sınırları.">
+<title>Antropoloji ve Rekonstrüksiyon | Simülakron V3</title>
+<link rel="icon" href="./assets/icon.svg" type="image/svg+xml">
+<script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@4.4.0/dist/model-viewer.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=Space+Grotesk:wght@400;500;700&display=swap');
+:root{color-scheme:dark;--cream:#f2ecdf;--teal:#9ad8c6;--amber:#e7bb85;--muted:#a5bec2;font-family:DM Sans,system-ui,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 65% -10%,#21444d,#06141d 55%);color:var(--cream);min-height:100vh}
+a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+.wrap{max-width:1230px;margin:auto;padding:0 22px 46px}
+header{padding:22px 0;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #3c5b60}
+header strong{font:700 20px "Space Grotesk",sans-serif;letter-spacing:.01em}header strong span{color:var(--amber)}
+header a{font-size:11px;color:#c3d7d0;letter-spacing:.08em;font-weight:800}
+.top{padding:35px 0 24px}
+.overline{color:var(--teal);font-size:10px;font-weight:800;letter-spacing:.17em;margin:0 0 11px}
+.top h1{font:700 clamp(29px,5vw,55px) "Space Grotesk",sans-serif;letter-spacing:-.06em;line-height:1.14;margin:0}
+.top h1 em{font-style:normal;color:var(--amber)}
+.top p:last-child{font-size:13px;line-height:1.8;color:#b1caca;max-width:700px}
+.workspace{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(300px,.8fr);gap:15px}
+.viewer{border:1px solid #527277;border-radius:14px;overflow:hidden;background:#122a35}
+.panelhead{display:flex;justify-content:space-between;gap:10px;padding:17px 19px;background:#18323b;border-bottom:1px solid #49646e;font-size:10px;font-weight:800;letter-spacing:.12em}
+.panelhead span:last-child{color:var(--teal)}
+#model-stage{height:clamp(380px,48vw,640px);position:relative;overflow:hidden;background:radial-gradient(ellipse at center,#50656a,#203942 47%,#091b29 83%)}
+#model-stage model-viewer{position:absolute;inset:0;display:block;width:100%;height:100%;--poster-color:transparent}
+#poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;filter:saturate(.64);opacity:.77}
+.watermark{position:absolute;left:18px;right:18px;bottom:17px;text-align:center;background:#071d26bb;border:1px solid #80968a;padding:9px 10px;border-radius:7px;font-size:10px;font-weight:800;letter-spacing:.06em;pointer-events:none}
+.loading{position:absolute;top:14px;left:14px;right:14px;background:#102a37d9;color:#e5c48b;padding:8px;border:1px solid #6b8b87;border-radius:7px;text-align:center;font-size:11px;letter-spacing:.06em}
+.controls{display:flex;align-items:center;gap:9px;padding:14px;flex-wrap:wrap}
+.controls button{border:1px solid #f1cd93;background:var(--amber);border-radius:8px;color:#173038;padding:13px 18px;font-weight:800;font-size:12px;flex:1}
+.controls button:disabled{opacity:.6;cursor:default}
+.viewer-note{font-size:11px;color:#9ebdc2;line-height:1.65;padding:0 17px 18px}
+.audit{border:1px solid #476970;background:#102a34;border-radius:14px;padding:22px}
+.audit h2{font:700 24px "Space Grotesk",sans-serif;letter-spacing:-.04em;margin:5px 0 20px}
+.audit .flag{padding:12px;background:#273d3b;border:1px solid #6f8d7b;color:#e0e6d7;border-radius:8px;font-size:11px;line-height:1.7;margin-bottom:19px}
+.entry{margin:17px 0;border-left:2px solid #88cbb5;padding-left:14px}
+.entry.warning{border-color:#e5b885}
+.entry span{font-size:10px;color:#a8c9c9;letter-spacing:.12em;font-weight:800}
+.entry p{font-size:12px;line-height:1.75;color:#dae4da;margin:7px 0 0}
+.audit a{display:block;margin-top:11px;font-size:11px;color:#eac992;text-decoration:underline;text-underline-offset:3px}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:17px}
+.tiles article{background:#102b34;border:1px solid #355a65;border-radius:11px;padding:19px}
+.tiles b{font-size:26px;color:var(--amber)}
+.tiles h3{font:700 17px "Space Grotesk",sans-serif;margin:9px 0}
+.tiles p{font-size:12px;line-height:1.75;color:#abc8ca}
+.bottom{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.bottom a{padding:14px 17px;border:1px solid #567879;background:#1a3b44;border-radius:9px;font-size:12px;font-weight:800}
+footer{margin-top:33px;border-top:1px solid #35565e;padding-top:23px;font-size:11px;color:#86a9ae}
+@media(max-width:850px){.workspace{grid-template-columns:1fr}.audit{padding:18px}.wrap{padding:0 14px 30px}}
+@media(max-width:570px){.wrap{padding:0 10px 25px}header{gap:5px}header strong{font-size:15px}header a{font-size:9px}.top{padding:25px 0}.tiles{grid-template-columns:1fr}#model-stage{height:116vw;min-height:330px;max-height:550px}.panelhead{font-size:9px;padding:12px}}
+</style></head>
+<body><div class="wrap">
+<header><a href="./">← ATLAS</a><strong>◈ SIMÜLAKRON <span>ANTROPOLOJİ</span></strong><a href="./chrono.html">ZAMAN KORİDORU ↗</a></header>
+<section class="top"><p class="overline">MÜZE DÜZEYİ MODELLEMEYE GEÇİŞ / LAB 001</p><h1>Bir yüz değil, <em>kanıtını</em> incele.</h1><p>Daha fazla poligon bir görüntüyü tarihsel olarak doğru yapmaz. Bu laboratuvar, anatomik gösterim ile tarihî kişilerin yüz rekonstrüksiyonu arasındaki bilimsel sınırı gösterir.</p></section>
+<main class="workspace">
+<section class="viewer">
+ <div class="panelhead"><span>3D ANATOMİ GÖSTERİMİ</span><span>CC0 / AÇIK VARLIK</span></div>
+ <div id="model-stage">
+  <img id="poster" src="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/ScatteringSkull/screenshot/screenshot-large.jpg" alt="Khronos açık lisanslı insan kafatası materyal gösteriminden örnek render">
+  <model-viewer id="skull" alt="Sanatçı üretimi insan kafatası PBR örnek modeli; arkeolojik bireye ait değildir" camera-controls touch-action="pan-y" shadow-intensity=".7" exposure="1.25" camera-orbit="45deg 75deg 2.8m" min-camera-orbit="auto auto 1m" max-camera-orbit="auto auto 6m" environment-image="neutral" loading="eager"></model-viewer>
+  <div id="model-state" class="loading">Model henüz indirilmedi. Başlatınca yaklaşık 9 MB yüklenecek.</div>
+  <div class="watermark">ÖZGÜN TARİHİ KALINTI DEĞİL · ANATOMİK PBR MATERYAL ÖRNEĞİ</div>
+ </div>
+ <div class="controls"><button id="load" type="button">◈ YÜKSEK AYRINTILI 3D MODELİ YÜKLE</button></div>
+ <div class="viewer-note">Üç boyutlu örnek dosyası üçüncü taraf GitHub deposundan cihazına indirilir. Karmaşık glTF materyalleri mobil tarayıcıda farklı görünebilir; yükleme başarısız olursa kaynak görseli kalır.</div>
+</section>
+<aside class="audit">
+ <p class="overline">KANIT PROTOKOLÜ / ANTROPOLOJİ</p><h2>Kafatasından yüz çıkarmak neden zor?</h2>
+ <div class="flag"><b>DOĞRU ETİKET:</b> Bu bir sanatçı üretimi glTF test modelidir. Herhangi bir Neandertal, Göbeklitepe sakini veya kazıdan çıkarılmış gerçek insanın kafatası değildir.</div>
+ <div class="entry"><span>DOĞRUDAN GÖZLEMLENEBİLEN</span><p>Gerçek bir osteolojik buluntu varsa kemik geometrisi, yaşa ilişkin sınırlı ipuçları ve belirli ölçüler incelenebilir.</p></div>
+ <div class="entry warning"><span>YORUM VE REKONSTRÜKSİYON</span><p>Yumuşak dokunun ayrıntıları, burun ve dudak biçimi, cilt yüzeyi ve hareketler birden çok varsayım içerebilir. Tek bir “kesin gerçek yüz” ortaya çıkmaz.</p></div>
+ <div class="entry warning"><span>BİLİNMEYENLER</span><p>Kişinin sesi, saç stili, kıyafetinin her ayrıntısı ve günlük yaşantısının tam görüntüsü yalnızca kafatasından çıkarılamaz.</p></div>
+ <div class="entry"><span>3D VARLIK KAYNAĞI</span><p>KhronosGroup glTF Sample Assets / ScatteringSkull. Model: Vladimir Petkovic. CC0-1.0. Kaynağa atıf, model kökenini denetlenebilir kılmak için verilmiştir.</p></div>
+ <a href="https://github.com/KhronosGroup/glTF-Sample-Assets/tree/main/Models/ScatteringSkull" target="_blank" rel="noopener noreferrer">3D modelin açık kaynak dosyaları ↗</a>
+ <a href="https://github.com/KhronosGroup/glTF-Sample-Assets/blob/main/Models/ScatteringSkull/LICENSE.md" target="_blank" rel="noopener noreferrer">Lisans ve kullanım koşulları ↗</a>
+</aside>
+</main>
+<section class="tiles">
+<article><b>01</b><h3>Tarama (scan)</h3><p>Gerçek nesnenin doğrudan ölçümü. Ölçüm doğruluğu, kaynak ve tarama koşulları belgelenir.</p></article>
+<article><b>02</b><h3>Rekonstrüksiyon</h3><p>Eksik parçalar, bilimsel yöntem ve varsayımlarla tamamlanır; belirsizlik bildirilir.</p></article>
+<article><b>03</b><h3>Sinematik kurgu</h3><p>Duygusal olarak etkileyici olabilir. Ancak bir görselin gerçekçi görünmesi, geçmişe dair yeni kanıt üretmez.</p></article>
+</section>
+<div class="bottom"><a href="./chrono.html">◈ ChronoWorm Zaman Koridoru ↗</a><a href="./time.html#physics-lab">⚛ Zamanın Fiziği ↗</a><a href="./globe.html">◎ Dünya Küresi ↗</a></div>
+<footer>SIMÜLAKRON / ANTROPOLOJİ LABORATUVARI · BİLGİ DÜZEYİ VE KAYNAK AYRIMI</footer>
+</div>
+<script>
+const model=document.getElementById("skull"),status=document.getElementById("model-state"),button=document.getElementById("load"),poster=document.getElementById("poster");
+const url="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/ScatteringSkull/glTF-Binary/ScatteringSkull.glb";
+button.addEventListener("click",()=>{
+ if(model.src)return;
+ button.disabled=true;button.textContent="◌ 3D MODEL YÜKLENİYOR…";status.textContent="Yaklaşık 9 MB model indiriliyor; internet bağlantısı gereklidir.";
+ model.src=url;
+});
+model.addEventListener("load",()=>{status.remove();poster.style.display="none";button.textContent="◉ MODEL HAZIR · DÖNDÜR VE YAKINLAŞTIR";});
+model.addEventListener("error",()=>{button.disabled=false;button.textContent="↺ YENİDEN DENE";model.removeAttribute("src");status.textContent="Model yüklenemedi veya gelişmiş malzemeler desteklenmedi; örnek render gösteriliyor.";});
+</script>
+</body></html>
