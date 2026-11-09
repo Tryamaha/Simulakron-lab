@@ -16,7 +16,7 @@
 <div class="app">
 <header class="header">
   <a class="home" href="./" aria-label="Ana sayfa">◈ <span>SIMÜLAKRON</span></a>
-  <div class="header-status"><span class="live-dot"></span> ARŞİV İSTASYONU / V3.2</div>
+  <div class="header-status"><span class="live-dot"></span> ARŞİV İSTASYONU / V3.3</div>
   <nav class="header-links"><a href="./time.html#physics-lab">⚛ FİZİK</a><a href="./globe.html">◎ KÜRE</a><a href="./telescope.html">⌖ DÜRBÜN</a><a href="./sentinel.html">◉ SENTINEL</a></nav>
 </header>
 <div class="eyebrow"><span class="rule"></span> Ω-9 / UZAY-ZAMAN ARŞİVİ <span class="rev">DENEYSEL KORİDOR 001</span></div>
@@ -44,6 +44,7 @@
         <span id="cw-nearest">EN YAKIN DÖNEM: İKLİM EŞİĞİ</span>
         <span class="hud-note">KAYDIR · SÜRÜKLE · OK TUŞLARI</span>
       </div>
+      <button id="cw-open-current" type="button" class="cw-open-current" aria-label="Seçili dönemin ayrıntılarını aç">◉ BU YILI KEŞFET</button>
       <div class="loading" id="cw-loading"><span class="loading-icon">◈</span><strong>UZAY-ZAMAN KORİDORU OLUŞTURULUYOR</strong><small>Bu, bilimsel takvim ölçeğine sahip görsel bir modeldir.</small></div>
     </div>
     <div class="flight-controls">
@@ -131,4 +132,37 @@
 </section>
 <footer><span>◈ SIMÜLAKRON / CHRONOWORM Ω-9</span><span>Bilimsel kronoloji · kurgusal yolculuk · doğrulanabilir kaynaklar</span><a href="https://github.com/Tryamaha/Simulakron-lab" target="_blank" rel="noopener">KAYNAK KODU ↗</a></footer>
 </div>
+
+<section id="cw-exhibit-modal" class="cw-exhibit-modal" hidden aria-hidden="true">
+  <div class="cw-exhibit-backdrop" data-close="true"></div>
+  <article id="cw-modal-panel" class="cw-exhibit-card" role="dialog" aria-modal="true" aria-labelledby="cw-modal-title" tabindex="-1">
+    <header class="cw-exhibit-header">
+      <span>◈ ARŞİV ZEKÂ Ω-9 · TARİH KAPISI</span>
+      <button id="cw-modal-close" type="button" aria-label="Dönem penceresini kapat">✕</button>
+    </header>
+    <div class="cw-exhibit-art">
+      <div class="cw-exhibit-sun" aria-hidden="true"></div>
+      <div class="cw-exhibit-year" id="cw-modal-year">MÖ 12.000</div>
+      <div class="cw-exhibit-group" id="cw-modal-group">İNSAN / İKLİM</div>
+      <div class="cw-exhibit-badges"><span id="cw-modal-level">YORUM / ÇIKARIM</span><span id="cw-modal-precision">YAKLAŞIK</span></div>
+      <p>ÜRETİLMİŞ ATMOSFERİK GÖRSEL · TARİHSEL KAYIT DEĞİL</p>
+    </div>
+    <div class="cw-exhibit-information">
+      <h2 id="cw-modal-title">Dönem bilgisi</h2>
+      <p id="cw-modal-description"></p>
+      <div class="cw-exhibit-facts">
+        <div><h3><span aria-hidden="true">✓</span> Bilimsel dayanak</h3><p id="cw-modal-evidence"></p></div>
+        <div><h3><span aria-hidden="true">?</span> Bilinmeyenler</h3><p id="cw-modal-unknown"></p></div>
+      </div>
+      <div class="cw-exhibit-references">
+        <h3>Kaynak arşivi</h3>
+        <div id="cw-modal-sources"></div>
+      </div>
+      <div class="cw-exhibit-actions">
+        <button type="button" id="cw-modal-resume">← KORİDORA DÖN</button>
+        <button type="button" id="cw-modal-next">SONRAKİ YILI KEŞFET →</button>
+      </div>
+    </div>
+  </article>
+</section>
 </body></html>
