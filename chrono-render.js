@@ -1,14 +1,15 @@
 import * as THREE from "three";
 import {tunnelVertex,tunnelFragment} from "./chrono-shaders.js";
 import {EXHIBITS,scaleYear} from "./chrono-data.js";
+import {createHumanEncounter} from "./chrono-human.js";
 
 /**
  * ChronoWorm renderer. The curved passage is an artistic visualization.
  * Positions along the tunnel are proportional to elapsed CALENDAR years.
  * It does not simulate a traversable relativistic wormhole.
  */
-export function createChronoRenderer({canvas,viewport,onProgress=()=>{},onStatus=()=>{}}){
- let scene,camera,renderer,clock,curve,frames,mat,railing=[],light;
+export function createChronoRenderer({canvas,viewport,onProgress=()=>{},onStatus=()=>{},onHuman=()=>{}}){
+ let scene,camera,renderer,clock,curve,frames,mat,railing=[],light,human=null;
  let smoothFov=72,headTurn={x:0,y:0},desiredHead={x:0,y:0};
  let current=0,target=0,autoplay=false,raf=null,lastRead=-100,speed=1,visualQuality=1,elapsed=0;
  const reduced=window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches||false;
@@ -83,6 +84,7 @@ export function createChronoRenderer({canvas,viewport,onProgress=()=>{},onStatus
     gate.billboard=plaque;
     scene.add(plaque);
   }
+  human=createHumanEncounter({THREE,scene,curve,t:scaleYear(2026),notify:onHuman});
   const particleCount=2400,positions=new Float32Array(particleCount*3);
   let seed=98109;
   const rand=()=>{seed=(1664525*seed+1013904223)>>>0;return seed/4294967296;};
@@ -150,12 +152,14 @@ export function createChronoRenderer({canvas,viewport,onProgress=()=>{},onStatus
   mat.uniforms.uChronology.value=t;
   mat.uniforms.uDetail.value=visualQuality;
   for(const gate of railing){const visible=Math.abs(gate.t-t)<.10;gate.mesh.visible=visible;gate.billboard.visible=visible;}
+  human?.visible(t);
   renderer.render(scene,camera);
   if(performance.now()-lastRead>80){lastRead=performance.now();onProgress(current,{autoplay,target});}
  }
  try{setup()}catch(e){console.error("ChronoWorm WebGL:",e);onStatus("unavailable");}
  return {
   isReady:()=>!!renderer&&!!scene,
+  loadHuman:()=>human?.load()??Promise.resolve(false),
   setSpeed(v){speed=clamp(Number(v)||1,.15,4)},
   setQuality(v){visualQuality=clamp(Number(v)||1,0,1)},
   go(t){target=clamp(t,0,1);autoplay=false;onStatus("paused")},
@@ -165,6 +169,6 @@ export function createChronoRenderer({canvas,viewport,onProgress=()=>{},onStatus
   isPlaying:()=>autoplay,
   target:()=>target,
   current:()=>current,
-  destroy(){cancelAnimationFrame(raf);renderer?.dispose();}
+  destroy(){cancelAnimationFrame(raf);human?.dispose();renderer?.dispose();}
  };
 }
