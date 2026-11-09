@@ -6,6 +6,7 @@ const safe=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"
 const LABEL={evidence:"TARİHSEL / ARKEOLOJİK KANIT",inference:"DOLAYLI KANIT / YORUM",fiction:"GELECEK KURGUSU / SENARYO"};
 let chosen=EXHIBITS[0],engine=null,pressed=null;
 let autoNarration=false,lastNarration=-1;
+const dialog=$("cw-exhibit-modal");let dialogReturnFocus=null;
 const slider=$("cw-slider"),rail=$("cw-events"),viewport=$("cw-viewport"),play=$("cw-play");
 let lastPublishedYear=null;
 function at(x){return EXHIBITS.findIndex(y=>y.year===x.year);}
@@ -52,7 +53,69 @@ function changePosition(t,immediate=false){
  const x=nearest(v);if(x!==chosen)renderItem(x,false);
  updatePlay();
 }
-function toExhibit(item){renderItem(item,true);changePosition(scaleYear(item.year));}
+/**
+ * Archive modal: every historical year opens a meaningful, source-labeled exhibit.
+ * HTML fields are populated with textContent, never unsanitized HTML.
+ */
+function openExhibit(item){
+ if(!item)return;
+ if(dialog.hidden)dialogReturnFocus=document.activeElement;
+ engine?.pause();updatePlay();
+ renderItem(item,true);changePosition(scaleYear(item.year),true);
+ dialog.dataset.level=item.type;
+ $("cw-modal-year").textContent=yearText(item.year);
+ $("cw-modal-group").textContent=item.group;
+ $("cw-modal-level").textContent=LABEL[item.type];
+ $("cw-modal-precision").textContent=item.precision;
+ $("cw-modal-title").textContent=item.title;
+ $("cw-modal-description").textContent=item.description;
+ $("cw-modal-evidence").textContent=item.evidence;
+ $("cw-modal-unknown").textContent=item.unknown;
+ const sourceList=$("cw-modal-sources");sourceList.replaceChildren();
+ for(const ref of item.sources||[]){
+  try{
+   const u=new URL(ref.url);
+   if(u.protocol!=="https:")continue;
+   const a=document.createElement("a");
+   a.href=u.href;a.target="_blank";a.rel="noopener noreferrer";
+   a.textContent=ref.label+" ↗";sourceList.appendChild(a);
+  }catch(e){}
+ }
+ if(!sourceList.childElementCount){
+  sourceList.textContent="Bu kayıt için doğrulanmış doğrudan kaynak bağlantısı henüz eklenmedi; kesinlik iddiası taşımıyor.";
+ }
+ $("cw-modal-next").disabled=at(item)===EXHIBITS.length-1;
+ dialog.hidden=false;dialog.setAttribute("aria-hidden","false");
+ document.body.classList.add("cw-dialog-open");
+ $("cw-modal-close").focus({preventScroll:true});
+}
+function closeExhibit(){
+ if(dialog.hidden)return;
+ dialog.hidden=true;dialog.setAttribute("aria-hidden","true");
+ document.body.classList.remove("cw-dialog-open");
+ const focus=dialogReturnFocus;dialogReturnFocus=null;
+ if(focus?.isConnected)focus.focus({preventScroll:true});
+ else viewport.focus({preventScroll:true});
+}
+$("cw-open-current").addEventListener("click",()=>openExhibit(chosen));
+$("cw-modal-close").addEventListener("click",closeExhibit);
+$("cw-modal-resume").addEventListener("click",closeExhibit);
+$("cw-modal-next").addEventListener("click",()=>{
+ const candidate=EXHIBITS[at(chosen)+1];if(candidate)openExhibit(candidate);
+});
+dialog.addEventListener("click",e=>{
+ if(e.target===dialog||e.target.dataset?.close==="true")closeExhibit();
+});
+dialog.addEventListener("keydown",e=>{
+ if(e.key==="Escape"){e.preventDefault();closeExhibit();return;}
+ if(e.key!=="Tab")return;
+ const nodes=Array.from(dialog.querySelectorAll("button:not(:disabled),a[href]"));
+ if(!nodes.length)return;
+ const first=nodes[0],last=nodes.at(-1);
+ if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+ else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+});
+function toExhibit(item){openExhibit(item);}
 function next(delta){toExhibit(EXHIBITS[clamp(at(chosen)+delta,0,EXHIBITS.length-1)])}
 for(const item of EXHIBITS){
  const b=document.createElement("button");b.type="button";b.className="event"+(item.type==="fiction"?" fiction":"");b.dataset.year=String(item.year);
@@ -70,7 +133,7 @@ function onStatus(s){
  if(s==="ended")$("render-status").textContent="◈ YIL 3000 / KURGU";
  updatePlay();
 }
-engine=createChronoRenderer({canvas:$("cw-canvas"),viewport,onProgress:renderProgress,onStatus,onHuman:(message)=>{$("cw-human-status").textContent=message}});
+engine=createChronoRenderer({canvas:$("cw-canvas"),viewport,onProgress:renderProgress,onStatus,onHuman:(message)=>{$("cw-human-status").textContent=message},onSelect:openExhibit});
 changePosition(scaleYear(initial),true);
 function voiceExhibit(item){
  if(!("speechSynthesis" in window))return;
@@ -131,21 +194,34 @@ viewport.addEventListener("wheel",e=>{
  if(Math.abs(e.deltaY)<1)return;e.preventDefault();
  changePosition((engine?.target()??Number(slider.value)/10000)+e.deltaY*.00023);
 },{passive:false});
+// Tap opens a year; dragging travels through the corridor. Works with touch and mouse.
 viewport.addEventListener("pointerdown",e=>{
  if(e.pointerType==="mouse"&&e.button!==0)return;
- pressed={id:e.pointerId,y:e.clientY,t:engine?.target()??Number(slider.value)/10000};
+ if(e.target.closest?.("button,a,input,select"))return;
+ pressed={id:e.pointerId,x:e.clientX,y:e.clientY,t:engine?.target()??Number(slider.value)/10000,moved:false};
  viewport.setPointerCapture?.(e.pointerId);
 });
 viewport.addEventListener("pointermove",e=>{
  if(!pressed||pressed.id!==e.pointerId)return;
+ if(Math.hypot(e.clientX-pressed.x,e.clientY-pressed.y)<12&&!pressed.moved)return;
+ pressed.moved=true;
  changePosition(pressed.t+(pressed.y-e.clientY)/Math.max(200,viewport.clientHeight)*.48);
 });
-viewport.addEventListener("pointerup",e=>{if(pressed?.id===e.pointerId)pressed=null});
+viewport.addEventListener("pointerup",e=>{
+ if(!pressed||pressed.id!==e.pointerId)return;
+ const tapped=!pressed.moved&&Math.hypot(e.clientX-pressed.x,e.clientY-pressed.y)<12;
+ pressed=null;
+ if(!tapped||!dialog.hidden)return;
+ const hit=engine?.pick(e.clientX,e.clientY)??false;
+ // A year always opens, even if a tiny 3D label missed the raycaster.
+ if(!hit)openExhibit(nearest(engine?.current()??Number(slider.value)/10000));
+});
 viewport.addEventListener("pointercancel",e=>{if(pressed?.id===e.pointerId)pressed=null});
 viewport.addEventListener("keydown",e=>{
  if(["ArrowRight","ArrowDown","PageDown"].includes(e.key)){e.preventDefault();next(1);}
  if(["ArrowLeft","ArrowUp","PageUp"].includes(e.key)){e.preventDefault();next(-1);}
  if(e.key===" "){e.preventDefault();if(engine?.isPlaying())engine.pause();else engine?.play();updatePlay();}
+ if(e.key==="Enter"){e.preventDefault();openExhibit(chosen);}
 });
 $("cw-speak").addEventListener("click",()=>{
  if(!("speechSynthesis" in window)){alert("Sesli okuma bu cihazda desteklenmiyor.");return;}
