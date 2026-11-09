@@ -6,6 +6,10 @@ on:
       - "science-core.js"
       - "chrono-data.js"
       - "co2-annual-data.js"
+      - "chrono-render.js"
+      - "chrono-shaders.js"
+      - "chrono-human.js"
+      - "chrono.js"
       - "tests/**"
       - ".github/workflows/science.yml"
   pull_request:
@@ -24,5 +28,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
+      - name: Validate interactive tunnel scripts
+        run: |
+          node --check chrono-render.js
+          node --check chrono-human.js
+          node --check chrono-shaders.js
+          node --check chrono.js
       - name: Run physical and chronological model tests
         run: npm test
