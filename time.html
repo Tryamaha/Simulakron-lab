@@ -8,6 +8,7 @@
 <link rel="icon" href="./assets/icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="./time.css">
 <script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@4.4.0/dist/model-viewer.min.js"></script>
+<script type="module" src="./time-science.js"></script>
 <script type="module" src="./time.js"></script>
 </head>
 <body>
@@ -43,6 +44,49 @@
       <p class="disclaimer">Bu sürümde rehber, yerel tarih kataloğundan cevap veren senaryolu bir karakterdir. Canlı yapay zekâ, gelecekten bilgi veya geleceği kesin bilme iddiası yoktur.</p>
     </aside>
   </div>
+<section class="science-time" id="physics-lab">
+ <div class="st-title"><p class="overline">◈ DOĞRULANABİLİR BİLİMSEL MODEL</p><h2>Uzay–Zaman Laboratuvarı</h2><p>Animasyonun ötesi: gerçek tarih aralıkları, ışığın yolculuğu ve görelilik.</p></div>
+ <div class="st-grid">
+  <article class="st-card"><h3>01 · Tarihsel zaman ekseni</h3>
+   <div class="st-num"><span>Seçili dönem</span><b id="st-year">MÖ 12.000</b></div>
+   <div class="st-num"><span>Bugüne olan uzaklık</span><b id="st-age">—</b></div>
+   <div class="st-axis"><span id="st-marker"></span></div>
+   <div class="st-axis-label"><span>MÖ 12.000</span><span>2026</span><span>3000</span></div>
+   <p>Tarihler arasında doğrusal ölçek kullanılır. Tarihsel takvimde <strong>yıl 0 yoktur</strong>; aralık hesabı astronomik yıl numaralandırmasıyla yapılır.</p>
+   <div class="st-truth" id="st-truth">Tarihsel bilgi ve görsel temsil birbirinden ayrıdır.</div>
+  </article>
+  <article class="st-card"><h3>02 · Işığın gerçekten geçmişten gelmesi</h3>
+   <label for="st-distance">Gözlem mesafesi</label>
+   <div class="st-inputline"><input id="st-distance" type="number" value="4.24" min=".001" max="1000000" step=".01" inputmode="decimal"><select id="st-distance-unit"><option value="ly">Işık yılı</option><option value="au">Astronomik birim</option><option value="km">Kilometre</option></select></div>
+   <div class="st-num"><span>Işık yolculuk süresi</span><b id="st-delay">4,24 yıl</b></div>
+   <p id="st-delay-text">Yıldız ışığının bize ulaşması zaman alır. Uzak bir yıldıza baktığımızda geçmişte yaydığı ışığı görürüz. Bu, Dünya'nın geçmişini kamera ile izlemek değildir.</p>
+   <a href="https://science.nasa.gov/exoplanets/what-is-a-light-year/" target="_blank" rel="noopener noreferrer">NASA · Işık yılı ↗</a>
+  </article>
+  <article class="st-card"><h3>03 · Göreli hareket ve zaman</h3>
+   <div class="st-slider"><label for="st-beta">Hız (v/c)</label><output id="st-beta-value">0,80 c</output></div>
+   <input id="st-beta" type="range" min="0" max=".99" step=".01" value=".80">
+   <div class="st-num"><span>Lorentz faktörü (γ)</span><b id="st-gamma">1,667</b></div>
+   <div class="st-num"><span>Dünya'da 10 yıl geçerken yolcunun saati</span><b id="st-clock">6,00 yıl</b></div>
+   <p>γ = 1/√(1−v²/c²). Model sabit hızda ideal eylemsiz hareket varsayar; hızlanma veya gidiş-dönüş yolculuğu hesaplamaz.</p>
+   <a href="https://spaceplace.nasa.gov/time-travel/en/" target="_blank" rel="noopener noreferrer">NASA · Zaman genişlemesi ↗</a>
+  </article>
+  <article class="st-card"><h3>04 · Nedenselliğin ışık konisi</h3>
+   <svg id="st-diagram" viewBox="0 0 440 240" role="img" aria-label="Gelecekteki ışık konisi ve seçilen hıza göre yolcunun dünya çizgisi">
+    <polygon points="220,200 45,28 395,28" fill="#86c8c6" fill-opacity=".11"/>
+    <path d="M220 200 L45 28 M220 200 L395 28" stroke="#b3ded7" stroke-width="2" stroke-dasharray="5 6"/>
+    <path d="M220 225 V10 M24 200 H417" stroke="#68969d" stroke-width="1.5"/>
+    <path d="M220 200 V28" stroke="#e5b67c" stroke-width="2"/>
+    <path id="st-worldline" d="M220 200 L360 28" stroke="#a5f4bc" stroke-width="4"/>
+    <circle id="st-worldpoint" cx="360" cy="28" r="5" fill="#a5f4bc"/>
+    <g font-family="sans-serif" font-size="11" fill="#c5dbd8"><text x="230" y="17">ct (zaman)</text><text x="398" y="217">x</text><text x="15" y="23">−c</text><text x="395" y="23">+c</text><text x="21" y="233">Uzay ekseni: ışık yılı · Zaman: yıl</text></g>
+   </svg>
+   <p>Yeşil dünya çizgisi yolcunun hızını, kesikli sınırlar ışık hızını gösterir. Bu 1+1 boyutlu şema gerçek bir zaman makinesi değil, fiziksel bir modeldir.</p>
+   <a href="https://www.astro.ucla.edu/~wright/st_diags.htm" target="_blank" rel="noopener noreferrer">UCLA · Uzay-zaman diyagramı ↗</a>
+  </article>
+ </div>
+ <p class="st-note">**Kanıt düzeyi:** Tarihsel olaylar kaynaklarla araştırılır; 3D karakter/şehirler yorumsal rekonstrüksiyondur; 2050–3000 sahneleri kurgu olup fiziksel tahmin veya gerçek görüntü değildir. MÖ tarihler yaklaşık olabilir.</p>
+ <div class="st-links"><a href="https://eclipse.gsfc.nasa.gov/help/dates.html" target="_blank" rel="noopener noreferrer">NASA · Tarihsel takvimde sıfır yılı ↗</a><a href="./telescope.html">Bilimsel Dürbüne Geç ↗</a></div>
+</section>
   <section class="controls">
     <div class="ctlhead"><div><p class="overline">ZAMANDA GEZİN</p><h2>Yolculuk rotan</h2></div><button id="replay" type="button">◈ Tüneli Yeniden Aç</button></div>
     <div class="range"><span class="end">MÖ 12000</span><input id="years" type="range" min="0" max="15" step="1" value="0" aria-label="Zaman dilimi"><span class="end">3000</span></div>
