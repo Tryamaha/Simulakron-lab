@@ -7,7 +7,6 @@
 <title>Ultra Zekâ • Zaman Kaşifi</title>
 <link rel="icon" href="./assets/icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="./time.css">
-<script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@4.4.0/dist/model-viewer.min.js"></script>
 <script type="module" src="./time-science.js"></script>
 <script type="module" src="./time.js"></script>
 </head>
@@ -26,12 +25,15 @@
   <div class="tripboard">
     <div class="screen">
       <div class="screenhead"><span class="signal">●</span><span id="period-marker">ZAMAN NOKTASI 001</span><span class="timecode" id="hero-year">MÖ 12000</span></div>
-      <div class="stage">
-        <model-viewer id="scene3d" src="./assets/prehistoric-scene.gltf" alt="Tarih öncesi 3D mamut ve insan canlandırması" ar ar-modes="quick-look scene-viewer webxr" ar-placement="floor" camera-controls touch-action="pan-y" auto-rotate rotation-per-second="13deg" shadow-intensity=".8" exposure="1.3" camera-orbit="40deg 72deg 3.3m" min-camera-orbit="auto auto 1.3m" max-camera-orbit="auto auto 6m">
-          <button slot="ar-button" class="ar-launch" type="button">⌖ SAHNEYİ ODAMDA GÖR (AR)</button>
-          <div slot="poster" class="loading">3D DÖNEM SAHNESİ HAZIRLANIYOR…</div>
-        </model-viewer>
-        <div class="stage-tag" id="stage-evidence">◈ TARİHSEL DAYANAK · STİLİZE 3D TEMSİL</div>
+      <div class="stage evidence-stage" id="evidence-stage">
+        <div class="archive-ray" aria-hidden="true"></div>
+        <div class="archive-orbit orbit-a" aria-hidden="true"></div>
+        <div class="archive-orbit orbit-b" aria-hidden="true"></div>
+        <div class="archive-orbit orbit-c" aria-hidden="true"></div>
+        <div class="archive-crosshair" aria-hidden="true">✧</div>
+        <div class="era-display"><p>ARŞİV ANALİZİ / YIL</p><strong id="stage-hero-year">MÖ 12.000</strong><span id="stage-kind">TARİHSEL VERİ + TEMSİLİ SAHNE</span></div>
+        <a class="chrono-open" href="./chrono.html">◈ 3D CHRONOWORM KORİDORUNA GİR ↗</a>
+        <div class="stage-tag" id="stage-evidence">◈ FİGÜR REKONSTRÜKSİYONLARI DOĞRULANMADI</div>
       </div>
       <div class="stagefoot"><div><p class="micro" id="period">TARİH ÖNCESİ</p><h2 id="scene-name">Buzul Çağı'nın sonları</h2><p id="scene-summary">Erken insan topluluklarının yaşam dünyasına stilize bir bakış.</p></div><button id="play-scene" type="button">▶ Rehberi Dinle</button></div>
     </div>
