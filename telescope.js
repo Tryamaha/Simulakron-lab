@@ -1,3 +1,4 @@
+import {drawScientificSky,instrumentReadout} from "./science-sky.js";
 const $=id=>document.getElementById(id);
 const vid=$("livevideo"),canvas=$("overlay"),ctx=canvas.getContext("2d"),stage=$("visor");
 const Y=[-12000,-3200,-500,1453,1923,2026,2100,2600,3000],fmt=v=>v<0?"MÖ "+Math.abs(v):String(v);
@@ -17,11 +18,11 @@ let w=1,h=1,timer;const stars=[];let seed=3000;for(let i=0;i<160;i++){seed=(seed
 function toast(message){const n=$("toast");n.textContent=message;n.classList.add("show");clearTimeout(timer);timer=setTimeout(()=>n.classList.remove("show"),2800)}
 function resize(){const rect=stage.getBoundingClientRect(),dpr=Math.min(devicePixelRatio||1,2);w=rect.width;h=rect.height;canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);ctx.setTransform(dpr,0,0,dpr,0,0)}
 new ResizeObserver(resize).observe(stage);resize();
-function videoStyle(){vid.style.transform="scale("+(s.zoom*(s.front?-1:1))+","+s.zoom+")";vid.style.filter=s.night?"grayscale(1) sepia(1) hue-rotate(65deg) saturate(3) contrast(1.5) brightness(1.2)":"none";$("zoom-hud").textContent=$("zoom-val").textContent=s.zoom.toFixed(1)+"×";$("zoom").value=s.zoom}
+function videoStyle(){vid.style.transform="scale("+(s.zoom*(s.front?-1:1))+","+s.zoom+")";vid.style.filter=s.night?"grayscale(1) sepia(1) hue-rotate(65deg) saturate(3) contrast(1.5) brightness(1.2)":"none";$("zoom-hud").textContent=$("zoom-val").textContent=s.zoom.toFixed(1)+"×";$("zoom").value=s.zoom;instrumentReadout(s.stream?.getVideoTracks?.()[0]||null,s.zoom)}
 function guide(){
  const msgs={
  surface:"Gerçek dünyanın görüntüsü. 3D atlas için Sihirli Küre'yi aç. Ekrandaki tarama işaretleri dijital çizimdir.",
- sky:"Gökyüzündeki noktalar ve çizgiler yıldızların gerçek yerlerini göstermez. Bu bir sanal gökyüzü gösterimidir.",
+ sky:"Gökyüzü haritası: Parlak katalog yıldızlarının hesaplanmış alt-azimut konumları ve yaklaşık Güneş yönü. Harita kuzeye göre çizilir; kameranın baktığı yöne hizalanmaz. Atmosferik kırılma ve yıldız presesyonu düzeltilmemiştir.",
  micro:"Dijital büyütme yeni fiziksel ayrıntı oluşturmaz. Hücreleri görmek için optik mikroskop gerekir.",
  time:notes[s.year]
  };
@@ -29,14 +30,14 @@ function guide(){
  $("info-level").textContent={surface:"01 · CANLI GÖZLEM",sky:"02 · SANAL GÖKYÜZÜ",micro:"03 · DİJİTAL MİKRO",time:"04 · ZAMAN KATMANI"}[s.mode];
  $("origin").textContent=s.mode==="surface"?"KAMERA + HUD":"SİMÜLASYON";
 }
-async function stop(){if(s.stream)s.stream.getTracks().forEach(t=>t.stop());s.stream=null;vid.pause();vid.srcObject=null;vid.classList.remove("active");$("fallback").style.display="block";$("power-label").textContent="Kamerayı Başlat";$("feed-status").textContent="SİMÜLASYON";$("view-note").textContent="CANLI KAMERA KAPALI";}
+async function stop(){if(s.stream)s.stream.getTracks().forEach(t=>t.stop());s.stream=null;vid.pause();vid.srcObject=null;vid.classList.remove("active");$("fallback").style.display="block";$("power-label").textContent="Kamerayı Başlat";$("feed-status").textContent="SİMÜLASYON";$("view-note").textContent="CANLI KAMERA KAPALI";instrumentReadout(null,s.zoom);}
 async function start(){
  if(!navigator.mediaDevices?.getUserMedia){toast("HTTPS üzerinden güncel Safari/Chrome gerekir.");return}
  if(s.stream){await stop();toast("Kamera kapatıldı");return}
  try{
   let st=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:s.front?"user":"environment"},width:{ideal:1920},height:{ideal:1080}}});
-  s.stream=st;vid.srcObject=st;await vid.play();vid.classList.add("active");$("fallback").style.display="none";$("power-label").textContent="Kamerayı Kapat";$("feed-status").textContent="CANLI KAMERA";$("view-note").textContent="GERÇEK GÖRÜNTÜ + SANAL İŞARETLER";videoStyle();
-  toast("Kamera açıldı: görüntüyü dijital olarak yakınlaştırabilirsin.");
+  s.stream=st;vid.srcObject=st;await vid.play();vid.classList.add("active");$("fallback").style.display="none";$("power-label").textContent="Kamerayı Kapat";$("feed-status").textContent="CANLI KAMERA";$("view-note").textContent="GERÇEK GÖRÜNTÜ + SANAL İŞARETLER";videoStyle();instrumentReadout(s.stream.getVideoTracks()[0],s.zoom);
+  toast("Kamera açıldı: sensör verileri alındı; yakınlaştırma sayısal kırpmadır.");
  }catch(e){console.error(e);await stop();toast(e.name==="NotAllowedError"?"Kamera izni verilmedi.":"Kamera açılamadı.")}
 }
 $("power").addEventListener("click",start);
@@ -64,10 +65,7 @@ function paint(t){
  }
  const shade=ctx.createRadialGradient(w/2,h/2,Math.min(w,h)*.2,w/2,h/2,Math.max(w,h)*.8);shade.addColorStop(0,"#0000");shade.addColorStop(1,"#000b");ctx.fillStyle=shade;ctx.fillRect(0,0,w,h);
  if(s.mode==="sky"){
-  ctx.fillStyle="#cfffe0";
-  for(let i=0;i<stars.length;i++){const [x,y,r]=stars[i];ctx.globalAlpha=.30+.65*Math.abs(Math.sin(t/900+i));ctx.beginPath();ctx.arc(x*w,y*h,r,0,Math.PI*2);ctx.fill();}
-  ctx.globalAlpha=.58;ctx.strokeStyle="#9cd9c6";for(let j=3;j<30;j+=5){ctx.beginPath();ctx.moveTo(stars[j][0]*w,stars[j][1]*h);ctx.lineTo(stars[j+2][0]*w,stars[j+2][1]*h);ctx.stroke();}
-  ctx.globalAlpha=1;label("SANAL YILDIZLAR / GERÇEK KONUM DEĞİL",h-48);
+  drawScientificSky(ctx,w,h);
  }
  if(s.mode==="micro"){
   ctx.strokeStyle=ink;ctx.setLineDash([4,8]);ctx.beginPath();ctx.arc(w/2,h/2,Math.min(w,h)*.26,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);label("DİJİTAL ZOOM / OPTİK MİKROSKOP DEĞİL",h-48);
