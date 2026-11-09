@@ -61,7 +61,7 @@ function openExhibit(item){
  if(!item)return;
  if(dialog.hidden)dialogReturnFocus=document.activeElement;
  engine?.pause();updatePlay();
- renderItem(item,true);changePosition(scaleYear(item.year),true);
+ renderItem(item,false);changePosition(scaleYear(item.year),true);
  dialog.dataset.level=item.type;
  $("cw-modal-year").textContent=yearText(item.year);
  $("cw-modal-group").textContent=item.group;
