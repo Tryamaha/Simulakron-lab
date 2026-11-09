@@ -1,8 +1,16 @@
-# ◈ Simülakron Atlas V3.2 — CHRONOWORM Ω-9
+# ◈ Simülakron Atlas V3.3 — CHRONOWORM Ω-9
 
 **İçinden geçilebilen 3D zaman koridoru · Doğrusal tarihsel takvim · Kanıt arşivi · NOAA gözlem verileri · Antropoloji Laboratuvarı · Fizik ve astronomi**
 
 GitHub Pages: **https://tryamaha.github.io/Simulakron-lab/**
+
+## V3.3 — Yıl kapılarına dokunma düzeltmesi
+
+- **[ChronoWorm / Yıl Kapıları](./chrono.html?v=3.3):** Tünel içindeki 3D yıl etiketine ve dönem kapısına dokununca raycaster ile ilgili tarihî kayıt bulunur; yıl çok küçükse veya 3D işaret seçilemezse dokunulan noktada en yakın tarihî dönem açılır.
+- **Her tarih kartı artık ayrıntı penceresini açar:** Yıl, dönem, arkeolojik/tarihsel bilgi, kanıt düzeyi, bilinmeyenler ve varsa doğrulanabilir dış kaynak bağlantıları gösterilir. 2050+ gelecek sahneleri kurgu olarak etiketlenir.
+- **Mobil uyumluluk:** Dokunup bırakma ile kaydırma ayrılır; parmak kaydırmak zaman içinde ilerletir, kısa dokunma dönem arşivini açar. Ayrıca ekrandaki “Bu Yılı Keşfet” düğmesi ve klavyede Enter desteklenir.
+- **Panel yönetimi:** Kapat, sonraki yıl, klavye Esc, odak geri dönüşü ve açılınca otomatik hareketin durması eklendi. WebGL çalışmasa da alt tarih kartlarıyla arşiv açılabilir.
+- **Doğrulama:** Otomatik ChronoWorm etkileşim kontrolü ve bilimsel testler GitHub Actions'ta çalışır. Gerçek iPhone Safari etkileşim testi ayrıca gerekir.
 
 ## V3.2 — Tamamlanan üç boyutlu koridor geliştirmesi
 
