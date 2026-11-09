@@ -8,7 +8,7 @@
 <title>ChronoWorm Ω-9 | Simülakron Zaman Gözlemevi</title>
 <link rel="icon" type="image/svg+xml" href="./assets/icon.svg">
 <link rel="stylesheet" href="./chrono.css">
-<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.182.0/build/three.module.js"}}</script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.182.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.182.0/examples/jsm/"}}</script>
 <script type="module" src="./chrono.js"></script>
 <script type="module" src="./chrono-earth.js"></script>
 </head>
@@ -60,6 +60,12 @@
       <div class="flight-setting flight-quality">
         <label for="cw-quality">Görsel detay <strong id="cw-quality-label">YÜKSEK</strong></label>
         <select id="cw-quality"><option value="1">Yüksek · bilgisayar</option><option value=".65">Dengeli · telefon</option><option value=".3">Düşük güç</option></select>
+      </div>
+      <div class="human-encounter">
+        <div><b>2026 / GERÇEKÇİ İNSAN REFERANSI</b><p>Modern anatomik oranlar, dokulu deri, saç ve giyimli vücut. Tarih öncesi insan değildir. Yaklaşık 17,2 MB model yalnızca isteğinle indirilir.</p></div>
+        <button type="button" id="cw-human-load">◈ İNSAN MODELİNİ AÇ</button>
+        <p id="cw-human-status" role="status">Henüz yüklenmedi · Kaynak: MakeHuman türevi, CC0</p>
+        <a href="https://www.innerscene.com/tools/library/3d-parts/placing-an-item-ahead-3d-person-everyday-tasks-3904157a" target="_blank" rel="noopener noreferrer">Model kaynağı ve lisansı ↗</a>
       </div>
       <p><b>Ölçüm protokolü:</b> Geçiş hızı ekranda izlediğin anlatımın hızıdır; uzaydaki fiziksel hızın veya ışık hızının katları değildir. Yıl konumu takvim mesafesine göre hesaplanır.</p>
     </div>
