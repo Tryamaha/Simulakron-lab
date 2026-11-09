@@ -1,8 +1,19 @@
-# ◈ Simülakron Atlas V3 — CHRONOWORM Ω-9
+# ◈ Simülakron Atlas V3.2 — CHRONOWORM Ω-9
 
 **İçinden geçilebilen 3D zaman koridoru · Doğrusal tarihsel takvim · Kanıt arşivi · NOAA gözlem verileri · Antropoloji Laboratuvarı · Fizik ve astronomi**
 
 GitHub Pages: **https://tryamaha.github.io/Simulakron-lab/**
+
+## V3.2 — Tamamlanan üç boyutlu koridor geliştirmesi
+
+- **İçinden kayılan gerçek 3D geçit:** Kamera, Catmull–Rom kıvrımlı tüpün yolunu takip eder. Kamera eksenleri hesaplanan Frenet çerçevelerine bağlandı; kıvrımlarda sabit dünya-yukarı vektörüne takılıp perspektif atlaması yapmaz.
+- **Görsel kalite:** Çok katmanlı GPU akış lifleri, ışık parçacıkları, 3D yıl kapıları ve yıl/olay etiketleri. Otomatik seyrüseferde alan açısı sınırlı biçimde değişir. Mobil kalite ayarı gerçek çözünürlüğü ve çizilen parçacık sayısını azaltır.
+- **Sesli rehber:** Kullanıcının açtığı Arşiv Zekâ Ω-9 anlatımı, duraklardan geçerken tarihsel kanıt/senaryo statüsüyle birlikte konuşur. Canlı yapay zekâ değil; yerel kaynaklı metinlerin cihazın konuşma motoruyla okunmasıdır.
+- **Gerçekçi insan karşılaştırması:** 2026 istasyonunda, kullanıcının isteğiyle indirilen, giysi/saç/deri dokuları içeren bir modern insan GLB referansı bulunur (~17,2 MB). Kaynak: [Innerscene / MakeHuman CC0](https://www.innerscene.com/tools/library/3d-parts/placing-an-item-ahead-3d-person-everyday-tasks-3904157a). **Eski insanın birebir yüzü veya tarihsel dönem kıyafeti değildir.** Harici GLB sunucusunun Safari CORS ve ağ davranışı her cihazda doğrulanmamıştır; hata durumunda kaynak sayfasına gitmek mümkündür.
+- **Düşük poligonlu eski insan modelleri ana tarih zaman sahnesinden çıkarılmıştır.** Eski AR prototipi ayrı bir deneyim olarak bulunabilir; dönemlere özgü, bilimsel kaynaklı, yüksek ayrıntılı rekonstrüksiyonlar henüz tamamlanmamıştır.
+- **Test:** GitHub Actions Node 22 üzerinde `npm test` ve temel ChronoWorm sözdizimi denetimleri çalışır. WebGL, iPhone Safari ve dış GLB sunucusu için gerçek cihaz testleri ayrı gereklidir.
+
+**Bilimsel ayrım:** GPU koridoru Einstein alan denklemlerinden türetilmiş geçilebilir bir solucan deliği modeli değildir. Kronoloji konumu gerçek takvim yılına orantılıdır; kamera hareketinin hızı ve rengi sinematik anlatı efektidir. Gelecek 2050–3000 katmanları kanıtlı gözlem değil, kurgu arşividir.
 
 ## Bilimsel V3: CHRONOWORM
 
