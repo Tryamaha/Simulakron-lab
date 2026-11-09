@@ -38,6 +38,7 @@ function setStop(n){
   $("truth-title").textContent=s.fiction?"BİLİMKURGU / OLASI GELECEK":"TARİHSEL TEMEL / TEMSİLİ MODEL";
   $("truth-text").textContent=s.fact;
   $("truth-icon").textContent=s.fiction?"✧":"◉";
+  $("stage-evidence").textContent=s.fiction?"✧ GELECEK KURGUSU · TARİHSEL GÖRÜNTÜ DEĞİL":"◈ TARİHSEL DAYANAK · STİLİZE 3D TEMSİL";
   const viewer=$("scene3d");viewer.src="./assets/"+s.scene+"-scene.gltf";
   viewer.alt=s.name+" için temsili üç boyutlu sahne";
   document.dispatchEvent(new CustomEvent("simulakron:time-stop",{detail:{year:s.year,fiction:!!s.fiction,name:s.name}}));
