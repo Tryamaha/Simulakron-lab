@@ -40,6 +40,7 @@ function setStop(n){
   $("truth-icon").textContent=s.fiction?"✧":"◉";
   const viewer=$("scene3d");viewer.src="./assets/"+s.scene+"-scene.gltf";
   viewer.alt=s.name+" için temsili üç boyutlu sahne";
+  document.dispatchEvent(new CustomEvent("simulakron:time-stop",{detail:{year:s.year,fiction:!!s.fiction,name:s.name}}));
   [...stopsBox.children].forEach((x,i)=>{x.classList.toggle("active",i===index);x.setAttribute("aria-pressed",String(i===index))});
   if(location.hash.slice(1)!==String(index))history.replaceState(null,"","#"+index);
 }
