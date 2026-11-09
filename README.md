@@ -1,14 +1,41 @@
-# ◈ Simülakron Atlas — Zaman Kaşifi 3000
+# ◈ Simülakron Atlas V3 — CHRONOWORM Ω-9
 
-**Tarih ansiklopedisi · Dünya atlası · 3D Sihirli Küre · Zaman tüneli · Dönem canlandırmaları (AR) · Gelecek dürbünü**
+**İçinden geçilebilen 3D zaman koridoru · Doğrusal tarihsel takvim · Kanıt arşivi · NOAA gözlem verileri · Antropoloji Laboratuvarı · Fizik ve astronomi**
 
 GitHub Pages: **https://tryamaha.github.io/Simulakron-lab/**
+
+## Bilimsel V3: CHRONOWORM
+
+- **[ChronoWorm / 3D Zaman Koridoru](./chrono.html):** Kıvrılan ve içinden kayarak geçilen gerçek WebGL 3D tüp geometri. Kaydırma, dokunma, önceki/sonraki dönem, otomatik ileri hareket ve klavye desteği. Kameranın koridor boyunca konumu normalleştirilmiş *gerçek takvim yılı mesafesi* ile değişir; olaylar gerçekte eşit aralıklı olmadığı için 3D konumları da eşit aralıklı değildir.
+- **[Antropoloji ve Rekonstrüksiyon](./anthropology.html):** Önceki basit insan modelleri ana zaman sahnesinden kaldırılmıştır. Açık lisanslı, yüksek ayrıntılı Khronos 3D kafatası örneği yalnızca kullanıcı isteyince indirilir. Bu bir kazı buluntusu, tarihî kişiye ait kafatası veya fotogerçek tarihî yüz rekonstrüksiyonu *değildir*.
+- **[Atmosfer / İklim Modülü](./chrono.html#earth-science):** NOAA GML 2026-10 sürümünden birebir 47 küresel yıllık CO₂ değeri (1979–2025); 2025 ön veri olarak işaretlenir. Ölçüm olmayan yıllar için **ölçüm icat edilmez**. USGS son buzul maksimumu karşılaştırması farklı tarihsel bağlamıyla sunulur.
+- **Kaynak sınıfları:** "Tarihsel/arkeolojik kanıt", "dolaylı kanıt / yorum" ve "gelecek kurgusu". Her durak ne bilindiğini ve ne bilinmediğini açıklar; doğrulanmamış yüzler/kıyafetler gerçek diye sunulmaz.
+- **Giriş:** Atlas'a ilk ziyaret otomatik olarak `chrono.html?arrival=1` adresine yönlenir ve, azaltılmış hareket tercihi yoksa, tünel akışı başlar. Sonraki ziyaretlerde ansiklopedi ana sayfası açılır.
+
+### Bilimsel sınırlar
+
+ChronoWorm tüneli fiziksel bir solucan deliğinin geçilebilir olduğunu veya geçmişe yolculuğun mümkün olduğunu kanıtlamaz. Bu, fiziksel olarak yorumlanan bir **takvim ekseninin sanatsal 3D temsili**dir. Atmosfer CO₂ verisi 1979'dan önce bu NOAA yıllık serisinde yoktur ve geleceğe ölçüm yapılmaz. Kafatası örneği ise sanatçı üretimi bir glTF materyal demodur, eski insanların gerçek yüzü değildir. iOS/Android'de özel WebGL ve AR davranışları gerçek cihazda ayrıca test edilmelidir.
+
+### Kaynaklar ve lisans
+
+- [UNESCO: Göbeklitepe](https://whc.unesco.org/en/list/1572) — MÖ 9600–8200 anıtsal yapılar
+- [NOAA GML: Küresel CO₂](https://gml.noaa.gov/ccgg/trends/gl_data.html) — Lan, Tans & Thoning 2026-10, 2025 ön veri
+- [USGS: Son Buzul Maksimumu ve deniz seviyesi](https://www.usgs.gov/faqs/how-does-present-glacier-extent-and-sea-level-compare-extent-glaciers-and-global-sea-level) — yaklaşık 20 bin yıl önce; MÖ 12.000 için doğrudan sayı olarak kullanılamaz
+- [Khronos / ScatteringSkull](https://github.com/KhronosGroup/glTF-Sample-Assets/tree/main/Models/ScatteringSkull) — Vladimir Petkovic, **CC0-1.0**; dış kaynakta barındırılan 3D sanatçı modeli, laboratuvar içinde isteğe bağlı yüklenir
+
+### Otomatik kalite testleri
+
+`npm test` bilim motoru için 9 test ve ChronoWorm kronolojisi/kanıt/NOAA veri bütünlüğü için 9 test çalıştırır; toplam **18 test**. `.github/workflows/science.yml` bu testleri ilgili dosyalarda değişiklik olduğunda GitHub Actions üzerinde yeniden çalıştırır. Matematiksel testlerin başarılı olması, sinematik görselleştirmenin tarihsel olayları fiziksel olarak yeniden ürettiği ya da mobil tarayıcıda sorunsuz çalıştığı anlamına gelmez.
+
+---
 
 ## Bölümler
 
 | Bölüm | Bağlantı | Amaç |
 |---|---|---|
 | Ana atlas | [Ana Sayfa](./index.html) | 88 tarih maddesi, 108 coğrafya kaydı, filtreler, interaktif harita, bilgi testi |
+| V3 Zaman Koridoru | [chrono.html](./chrono.html) | Kıvrılan, gezinilebilir 3D dönem tüneli, kanıt kartları, iklim verileri |
+| Antropoloji Laboratuvarı | [anthropology.html](./anthropology.html) | Açık lisanslı yüksek ayrıntılı 3D anatomi gösterimi; rekonstrüksiyonun bilimsel sınırları |
 | Sihirli Küre | [globe.html](./globe.html) | Dönüş yapan 3D Dünya, temsilî coğrafya ve tarih noktaları |
 | AR Zaman Küresi | [globe-ar.html](./globe-ar.html) | Dünya küresini veya tarihsel ve geleceğe ait stilize sahneleri AR ile yerleştirme |
 | Zaman Kaşifi | [time.html](./time.html) | MÖ 12.000'den 3000'e 16 durak ve 3D dönem sahneleri |
