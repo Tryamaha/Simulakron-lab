@@ -53,6 +53,26 @@
    <div class="ruler"><span>MÖ 12000</span><span>2026</span><span>3000</span></div>
    <div class="button-strip"><button id="night" type="button" aria-pressed="false">◐ Gece Görüşü</button><button id="grid" type="button" aria-pressed="true">⌗ Izgara Açık</button></div>
    <div class="guide"><div class="guide-top"><span>✧</span><div><small>KURGUSAL ZAMAN REHBERİ</small><strong>ULTRA ZEKÂ Ω</strong></div></div><p id="guide-text">Kaşif, 3000 yılının dürbününe hoş geldin. Önce gözlem yap, sonra görüntünün hangi kısmının simülasyon olduğunu sorgula.</p><div class="data-row"><b id="info-level">SEVİYE 01 · GÖZLEM</b><b id="origin">GERÇEK KAMERA</b></div></div>
+
+<section class="science-panel" id="sky-science">
+ <p class="science-eyebrow">◈ ASTRONOMİ MODÜLÜ · HESAPLANMIŞ KONUM</p>
+ <h3>Gerçek gök koordinatları</h3>
+ <p>Yıldızların görünür yönleri, seçilen enlem-boylam ile telefonun <strong>şimdiki UTC saati</strong> kullanılarak hesaplanır. Harita <strong>kuzey üstte, tepe noktası merkezde</strong> gösterilir. Telefonun baktığı yöne otomatik hizalanmaz.</p>
+ <div class="science-inputs">
+  <label>Enlem (°)<input id="observer-lat" type="number" min="-89.9" max="89.9" step=".001" value="38.61" inputmode="decimal"></label>
+  <label>Boylam (°)<input id="observer-lon" type="number" min="-180" max="180" step=".001" value="27.43" inputmode="decimal"></label>
+ </div>
+ <div class="science-actions"><button id="observer-update" type="button">◉ Koordinatlarla hesapla</button><button id="observer-gps" type="button">⌖ İzin vererek konum kullan</button></div>
+ <div id="sky-observation" role="status" aria-live="polite">Örnek konum: Manisa (yaklaşık koordinat).</div>
+ <p class="science-small">Model: J2000 yıldız koordinatları + yaklaşık yıldız zamanı (GMST) + küresel trigonometri. Atmosferik kırılma, ufuk engelleri, presesyon ve yıldız öz hareketleri eklenmedi; sonuçlar hassas yön bulma veya astronomik navigasyon için uygun değildir.</p>
+ <div class="science-sources"><a href="https://aa.usno.navy.mil/faq/alt_az" target="_blank" rel="noopener">USNO gök koordinatları ↗</a><a href="https://aa.usno.navy.mil/faq/GAST" target="_blank" rel="noopener">USNO yıldız zamanı ↗</a></div>
+</section>
+<section class="science-panel" id="camera-science">
+ <p class="science-eyebrow">▤ SENSÖR GERÇEKLERİ</p><h3>Kameranın gerçek sınırları</h3>
+ <div id="hardware-readout" role="status">Kamera açılmadı. Sensör verileri henüz alınmadı.</div>
+ <p class="science-small">Görüntü ölçeği tarayıcıda CSS ile dijital kırpma olarak uygulanır. Bu işlem optik odak uzaklığını değiştirmez. Tarayıcının bildirdiği çözünürlük ve kare hızı donanımdan ve tarayıcıdan etkilenebilir.</p>
+ <div class="science-sources"><a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrack/getSettings" target="_blank" rel="noopener">MDN kamera ayarları ↗</a><a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrack/getCapabilities" target="_blank" rel="noopener">MDN donanım yetenekleri ↗</a></div>
+</section>
    <div class="link-grid"><a href="./globe.html">◎ Dünya Küresi ↗</a><a href="./time.html">◷ Zaman Tüneli ↗</a><a href="./magic-window.html">▣ Sihirli Pencere ↗</a></div>
   </aside>
  </main>
