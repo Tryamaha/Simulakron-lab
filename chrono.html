@@ -7,9 +7,9 @@
 <meta name="description" content="Simülakron ChronoWorm v3: İçinde hareket edilebilen, yıl mesafesi gerçek takvime bağlı 3D zaman koridoru. Kaynaklı dönemler, kanıt düzeyleri ve kurgu sınırı.">
 <title>ChronoWorm Ω-9 | Simülakron Zaman Gözlemevi</title>
 <link rel="icon" type="image/svg+xml" href="./assets/icon.svg">
-<link rel="stylesheet" href="./chrono.css">
+<link rel="stylesheet" href="./chrono.css?v=3.3">
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.182.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.182.0/examples/jsm/"}}</script>
-<script type="module" src="./chrono.js"></script>
+<script type="module" src="./chrono.js?v=3.3"></script>
 <script type="module" src="./chrono-earth.js"></script>
 </head>
 <body>
@@ -31,7 +31,7 @@
        <strong id="sim-heading">3D ZAMAN GÖRÜNÜMÜ</strong>
        <span class="sync" id="render-status">◌ MOTOR HAZIRLANIYOR</span>
     </div>
-    <div class="viewport" id="cw-viewport" tabindex="0" role="application" aria-label="Etkileşimli zaman koridoru. Kaydırarak döneme ilerle, ok tuşlarıyla durağa geç, boşlukla otomatik yolculuğu başlat.">
+    <div class="viewport" id="cw-viewport" tabindex="0" role="application" aria-label="Etkileşimli zaman koridoru. Yıl etiketine dokunarak dönem arşivini aç, sürükleyerek ilerle, Enter ile seçili yılın bilgilerini gör.">
       <canvas id="cw-canvas" aria-label="Üç boyutlu kıvrımlı zaman koridoru"></canvas>
       <div class="fallback" id="cw-fallback" hidden>3D görüntü bu tarayıcıda desteklenmiyor. Aşağıdaki yıl çizgisi ve bilgi kartları kullanılabilir.</div>
       <div class="viewport-top">
@@ -42,7 +42,7 @@
       <div class="reticle" aria-hidden="true"><i></i><i></i></div>
       <div class="viewport-bottom">
         <span id="cw-nearest">EN YAKIN DÖNEM: İKLİM EŞİĞİ</span>
-        <span class="hud-note">KAYDIR · SÜRÜKLE · OK TUŞLARI</span>
+        <span class="hud-note">YILA DOKUN · SÜRÜKLEYEREK GEZİN</span>
       </div>
       <button id="cw-open-current" type="button" class="cw-open-current" aria-label="Seçili dönemin ayrıntılarını aç">◉ BU YILI KEŞFET</button>
       <div class="loading" id="cw-loading"><span class="loading-icon">◈</span><strong>UZAY-ZAMAN KORİDORU OLUŞTURULUYOR</strong><small>Bu, bilimsel takvim ölçeğine sahip görsel bir modeldir.</small></div>
