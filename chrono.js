@@ -69,6 +69,9 @@ function onStatus(s){
 }
 engine=createChronoRenderer({canvas:$("cw-canvas"),viewport,onProgress:renderProgress,onStatus});
 changePosition(scaleYear(initial),true);
+if(args.has("arrival") && !(window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches)){
+ engine?.play();updatePlay();
+}
 $("cw-prev").addEventListener("click",()=>next(-1));
 $("cw-next").addEventListener("click",()=>next(1));
 play.addEventListener("click",()=>{
