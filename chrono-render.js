@@ -9,7 +9,7 @@ import {createHumanEncounter} from "./chrono-human.js";
  * It does not simulate a traversable relativistic wormhole.
  */
 export function createChronoRenderer({canvas,viewport,onProgress=()=>{},onStatus=()=>{},onHuman=()=>{}}){
- let scene,camera,renderer,clock,curve,frames,mat,railing=[],light,human=null;
+ let scene,camera,renderer,clock,curve,frames,mat,railing=[],light,human=null,particleGeometry=null,totalParticles=0;
  let smoothFov=72,headTurn={x:0,y:0},desiredHead={x:0,y:0};
  let current=0,target=0,autoplay=false,raf=null,lastRead=-100,speed=1,visualQuality=1,elapsed=0;
  const reduced=window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches||false;
@@ -86,6 +86,7 @@ export function createChronoRenderer({canvas,viewport,onProgress=()=>{},onStatus
   }
   human=createHumanEncounter({THREE,scene,curve,t:scaleYear(2026),notify:onHuman});
   const particleCount=2400,positions=new Float32Array(particleCount*3);
+  totalParticles=particleCount;
   let seed=98109;
   const rand=()=>{seed=(1664525*seed+1013904223)>>>0;return seed/4294967296;};
   const up=new THREE.Vector3(0,1,0);
@@ -99,6 +100,7 @@ export function createChronoRenderer({canvas,viewport,onProgress=()=>{},onStatus
    positions[i*3]=p.x;positions[i*3+1]=p.y;positions[i*3+2]=p.z;
   }
   const pgeo=new THREE.BufferGeometry();
+  particleGeometry=pgeo;
   pgeo.setAttribute("position",new THREE.BufferAttribute(positions,3));
   scene.add(new THREE.Points(pgeo,new THREE.PointsMaterial({
    color:0xc1f2de,size:.055,transparent:true,opacity:.88,depthWrite:false,sizeAttenuation:true
@@ -161,7 +163,14 @@ export function createChronoRenderer({canvas,viewport,onProgress=()=>{},onStatus
   isReady:()=>!!renderer&&!!scene,
   loadHuman:()=>human?.load()??Promise.resolve(false),
   setSpeed(v){speed=clamp(Number(v)||1,.15,4)},
-  setQuality(v){visualQuality=clamp(Number(v)||1,0,1)},
+  setQuality(v){
+    visualQuality=clamp(Number(v)||1,.2,1);
+    if(renderer){const maxDpr=Math.min(window.devicePixelRatio||1,1.6);
+      renderer.setPixelRatio(maxDpr*(.45+.55*visualQuality));
+      resize();
+    }
+    particleGeometry?.setDrawRange(0,Math.max(500,Math.floor(totalParticles*(.28+.72*visualQuality))));
+  },
   go(t){target=clamp(t,0,1);autoplay=false;onStatus("paused")},
   seek(t){target=current=clamp(t,0,1);autoplay=false;onStatus("paused");onProgress(current,{autoplay,target})},
   play(){if(target>.999){target=0;current=0;}autoplay=true;onStatus("playing")},
