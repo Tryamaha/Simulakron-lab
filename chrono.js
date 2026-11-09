@@ -71,6 +71,20 @@ function onStatus(s){
 }
 engine=createChronoRenderer({canvas:$("cw-canvas"),viewport,onProgress:renderProgress,onStatus});
 changePosition(scaleYear(initial),true);
+const speedControl=$("cw-speed"),qualityControl=$("cw-quality");
+speedControl?.addEventListener("input",e=>{
+  const v=Number(e.target.value);
+  engine?.setSpeed(v);
+  $("cw-speed-label").textContent=v.toLocaleString("tr-TR",{minimumFractionDigits:1,maximumFractionDigits:2})+"×";
+});
+qualityControl?.addEventListener("change",e=>{
+  const v=Number(e.target.value);engine?.setQuality(v);
+  $("cw-quality-label").textContent=v>=.9?"YÜKSEK":v>=.5?"DENGELİ":"DÜŞÜK";
+});
+if(window.matchMedia?.("(max-width: 650px)")?.matches){
+  qualityControl.value=".65";qualityControl.dispatchEvent(new Event("change"));
+}
+
 if(args.has("arrival") && !(window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches)){
  engine?.play();updatePlay();
 }
