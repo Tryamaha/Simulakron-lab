@@ -7,11 +7,23 @@ function enter(){finish();location.href="./time.html";}
 function showGate(){
  if(gate)return;
  gate=document.createElement("div");gate.className="time-gateway";
- gate.innerHTML='<div class="tg-background"></div><div class="tg-perspective">'+Array.from({length:6},()=>'<span class="tg-ring"></span>').join("")+Array.from({length:28},(_,j)=>'<i class="tg-star" style="--x:'+((j*37)%100)+'%;--y:'+((j*61)%100)+'%;--rot:'+j*13+'deg;--delay:-'+(j%9)*.27+'s;--op:'+(0.4+(j%6)*.09)+'"></i>').join("")+'</div><div class="tg-content"><p class="tg-eyebrow">SIMÜLAKRON · ZAMAN KAPISI</p><div class="tg-sign">◈</div><h2>Bir adımda <em>binlerce yıl.</em></h2><strong class="tg-year" id="tg-year">MÖ 12000</strong><div class="tg-era" id="tg-era">BUZUL ÇAĞI</div><p class="tg-lede">Gelecekten gelen kurgusal Ultra Zekâ rehberinle zamanın katmanlarını keşfet.</p><div class="tg-progress"><span id="tg-progress"></span></div><div class="tg-actions"><button class="tg-enter" id="tg-enter">ZAMAN TÜNELİNE GİR →</button><button id="tg-skip">Giriş animasyonunu geç</button></div></div><p class="tg-disclaimer">GERÇEK ZAMAN YOLCULUĞU DEĞİL · TARİHSEL VE KURGUSAL 3D SİMÜLASYON</p>';
+ gate.innerHTML='<div class="tg-background"></div><div class="tg-perspective">'+Array.from({length:6},()=>'<span class="tg-ring"></span>').join("")+Array.from({length:28},(_,j)=>'<i class="tg-star" style="--x:'+((j*37)%100)+'%;--y:'+((j*61)%100)+'%;--rot:'+j*13+'deg;--delay:-'+(j%9)*.27+'s;--op:'+(0.4+(j%6)*.09)+'"></i>').join("")+'</div><div class="tg-content"><p class="tg-eyebrow">SIMÜLAKRON · ZAMAN KAPISI</p><div class="tg-sign">◈</div><h2>Bir adımda <em>binlerce yıl.</em></h2><strong class="tg-year" id="tg-year">MÖ 12000</strong><div class="tg-era" id="tg-era">BUZUL ÇAĞI</div><p class="tg-lede">Gelecekten gelen kurgusal Ultra Zekâ rehberinle zamanın katmanlarını keşfet.</p><div class="tg-metric" id="tg-metric" aria-live="polite">Dönemler arasındaki tarihsel aralık hesaplanıyor…</div><div class="tg-progress"><span id="tg-progress"></span></div><div class="tg-actions"><button class="tg-enter" id="tg-enter">ZAMAN TÜNELİNE GİR →</button><button id="tg-skip">Giriş animasyonunu geç</button></div></div><p class="tg-disclaimer">ZAMAN ÇİZELGESİ DOĞRUSAL, ANİMASYONUN ADIMLARI EŞİT SÜRELİDİR · FİZİKSEL ZAMAN YOLCULUĞU DEĞİL</p>';
  document.body.appendChild(gate);document.body.style.overflow="hidden";
  gate.querySelector("#tg-enter").addEventListener("click",enter);
  gate.querySelector("#tg-skip").addEventListener("click",finish);
- const spin=()=>{const v=years[i%years.length];$("#tg-year").textContent=fmt(v[0]);$("#tg-era").textContent=v[1];$("#tg-progress").style.width=Math.min(100,(i+1)/years.length*100)+"%";i++;};
+ const astro=y=>y<0?y+1:y;
+ const spin=()=>{
+  const v=years[i%years.length];
+  $("#tg-year").textContent=fmt(v[0]);$("#tg-era").textContent=v[1];
+  const distance=i===0?0:astro(v[0])-astro(years[i-1][0]);
+  $("#tg-metric").textContent=(i===0?"Başlangıç noktası":("Önceki durağa göre "+distance.toLocaleString("tr-TR")+" takvim yılı"))+
+    " · "+(v[0]>2026?"BİLİMKURGU":"TARİHSEL ZAMAN ÇİZGİSİ");
+  // Timeline progress is proportional to elapsed calendar years, not equal stop count.
+  const min=astro(years[0][0]),max=astro(years[years.length-1][0]);
+  const pct=(astro(v[0])-min)/(max-min)*100;
+  $("#tg-progress").style.width=Math.max(0,Math.min(100,pct))+"%";
+  i++;
+ };
  spin();interval=setInterval(()=>{spin();if(i>=years.length){clearInterval(interval);gate.querySelector("#tg-enter").textContent="ZAMAN KAŞİFİNİ BAŞLAT →";}},360);
  gate.addEventListener("keydown",e=>{if(e.key==="Escape")finish()});
 }
