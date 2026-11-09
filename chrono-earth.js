@@ -1,3 +1,4 @@
+import {CO2_GLOBAL_ANNUAL} from "./co2-annual-data.js";
 /**
  * Simülakron ChronoWorm — NOAA Global Monitoring Laboratory annual global
  * marine boundary-layer CO2 values (1979-2025), ppm dry air.
@@ -7,7 +8,7 @@
  * 2025 PRELIMINARY. No invented annual observations before 1979 or after 2025.
  */
 const $=id=>document.getElementById(id);
-const vals=[336.85,338.91,340.11,340.85,342.53,344.07,345.54,346.97,348.68,351.16,352.79,354.06,355.4,356.09,356.84,358.33,360.18,361.93,363.04,365.7,367.79,368.96,370.57,372.58,375.14,376.95,378.98,381.15,382.9,385.02,386.5,388.75,390.62,392.65,395.4,397.34,399.65,403.07,405.22,407.61,410.07,412.45,414.7,417.08,419.35,422.79,425.62];
+const vals=CO2_GLOBAL_ANNUAL;
 /* All 47 annual values transcribed from NOAA GML version 2026-10 (1979-2025). */
 const years=[...vals.keys()].map(i=>1979+i);
 const points=years.map((year,i)=>({year,value:vals[i]}));
