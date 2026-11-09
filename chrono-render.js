@@ -9,7 +9,7 @@ import {EXHIBITS,scaleYear} from "./chrono-data.js";
  */
 export function createChronoRenderer({canvas,viewport,onProgress=()=>{},onStatus=()=>{}}){
  let scene,camera,renderer,clock,curve,mat,railing=[],light;
- let current=0,target=0,autoplay=false,raf=null,lastRead=-100;
+ let current=0,target=0,autoplay=false,raf=null,lastRead=-100,speed=1,visualQuality=1,elapsed=0;
  const reduced=window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches||false;
  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
  const makeCurve=()=>{
@@ -35,10 +35,10 @@ export function createChronoRenderer({canvas,viewport,onProgress=()=>{},onStatus
   const g=new THREE.TubeGeometry(curve,700,4.35,30,false);
   mat=new THREE.ShaderMaterial({
    vertexShader:tunnelVertex,fragmentShader:tunnelFragment,
-   side:THREE.BackSide,depthWrite:true,uniforms:{uTime:{value:0}}
+   side:THREE.BackSide,depthWrite:true,uniforms:{uTime:{value:0},uVelocity:{value:0},uChronology:{value:0},uDetail:{value:1}}
   });
   scene.add(new THREE.Mesh(g,mat));
-  const ringGeometry=new THREE.TorusGeometry(3.77,.036,5,84);
+  const ringGeometry=new THREE.TorusGeometry(3.93,.03,7,108);
   const materials={
    evidence:new THREE.MeshBasicMaterial({color:0x83cbbb,transparent:true,opacity:.75,depthWrite:false}),
    inference:new THREE.MeshBasicMaterial({color:0xe5b57d,transparent:true,opacity:.8,depthWrite:false}),
@@ -51,7 +51,7 @@ export function createChronoRenderer({canvas,viewport,onProgress=()=>{},onStatus
    railing.push({mesh:gate,t});
    scene.add(gate);
   }
-  const particleCount=1450,positions=new Float32Array(particleCount*3);
+  const particleCount=2400,positions=new Float32Array(particleCount*3);
   let seed=98109;
   const rand=()=>{seed=(1664525*seed+1013904223)>>>0;return seed/4294967296;};
   const up=new THREE.Vector3(0,1,0);
@@ -83,7 +83,7 @@ export function createChronoRenderer({canvas,viewport,onProgress=()=>{},onStatus
   if(document.hidden)return;
   const dt=Math.min(clock.getDelta(),.06);
   if(autoplay){
-   target=clamp(target+dt*.016,0,1);
+   target=clamp(target+dt*.016*speed,0,1);
    if(target>=1){autoplay=false;onStatus("ended");}
   }
   const delta=target-current;
@@ -94,7 +94,11 @@ export function createChronoRenderer({canvas,viewport,onProgress=()=>{},onStatus
   if(!reduced)camera.position.y+=Math.sin(clock.elapsedTime*.56)*.014;
   camera.lookAt(f);
   light.position.copy(p);
-  mat.uniforms.uTime.value+=dt;
+  elapsed+=dt;
+  mat.uniforms.uTime.value=elapsed;
+  mat.uniforms.uVelocity.value=autoplay?speed:0;
+  mat.uniforms.uChronology.value=t;
+  mat.uniforms.uDetail.value=visualQuality;
   for(const gate of railing){gate.mesh.visible=Math.abs(gate.t-t)<.15;}
   renderer.render(scene,camera);
   if(performance.now()-lastRead>80){lastRead=performance.now();onProgress(current,{autoplay,target});}
@@ -102,6 +106,8 @@ export function createChronoRenderer({canvas,viewport,onProgress=()=>{},onStatus
  try{setup()}catch(e){console.error("ChronoWorm WebGL:",e);onStatus("unavailable");}
  return {
   isReady:()=>!!renderer&&!!scene,
+  setSpeed(v){speed=clamp(Number(v)||1,.15,4)},
+  setQuality(v){visualQuality=clamp(Number(v)||1,0,1)},
   go(t){target=clamp(t,0,1);autoplay=false;onStatus("paused")},
   seek(t){target=current=clamp(t,0,1);autoplay=false;onStatus("paused");onProgress(current,{autoplay,target})},
   play(){if(target>.999){target=0;current=0;}autoplay=true;onStatus("playing")},
