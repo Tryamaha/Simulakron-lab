@@ -7,13 +7,8 @@
  * 2025 PRELIMINARY. No invented annual observations before 1979 or after 2025.
  */
 const $=id=>document.getElementById(id);
-const vals=[
-336.85,338.91,340.11,340.85,342.53,344.04,344.96,346.97,348.68,351.16,
-354.06,355.06,356.09,356.98,358.81,360.86,362.61,363.73,366.67,368.38,
-369.55,371.14,373.28,375.80,377.52,379.80,382.90,384.96,387.12,388.75,
-390.62,392.65,395.40,397.34,399.65,403.07,405.22,407.61,410.07,412.45,
-414.70,417.08,419.35,422.79,425.62];
-/* Uses only the 45 entries listed above. Do not claim years that are not listed. */
+const vals=[336.85,338.91,340.11,340.85,342.53,344.07,345.54,346.97,348.68,351.16,352.79,354.06,355.4,356.09,356.84,358.33,360.18,361.93,363.04,365.7,367.79,368.96,370.57,372.58,375.14,376.95,378.98,381.15,382.9,385.02,386.5,388.75,390.62,392.65,395.4,397.34,399.65,403.07,405.22,407.61,410.07,412.45,414.7,417.08,419.35,422.79,425.62];
+/* All 47 annual values transcribed from NOAA GML version 2026-10 (1979-2025). */
 const years=[...vals.keys()].map(i=>1979+i);
 const points=years.map((year,i)=>({year,value:vals[i]}));
 const NS="http://www.w3.org/2000/svg",format=x=>Number(x).toLocaleString("tr-TR",{minimumFractionDigits:2,maximumFractionDigits:2});
