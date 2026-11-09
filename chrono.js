@@ -1,5 +1,5 @@
 import {EXHIBITS,MIN_YEAR,MAX_YEAR,scaleYear,unscaleYear,yearText,elapsed,nearest} from "./chrono-data.js";
-import {createChronoRenderer} from "./chrono-render.js";
+import {createChronoRenderer} from "./chrono-render.js?v=3.3";
 const $=id=>document.getElementById(id);
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const safe=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
