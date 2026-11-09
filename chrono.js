@@ -5,6 +5,7 @@ const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const safe=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const LABEL={evidence:"TARİHSEL / ARKEOLOJİK KANIT",inference:"DOLAYLI KANIT / YORUM",fiction:"GELECEK KURGUSU / SENARYO"};
 let chosen=EXHIBITS[0],engine=null,pressed=null;
+let autoNarration=false,lastNarration=-1;
 const slider=$("cw-slider"),rail=$("cw-events"),viewport=$("cw-viewport"),play=$("cw-play");
 let lastPublishedYear=null;
 function at(x){return EXHIBITS.findIndex(y=>y.year===x.year);}
@@ -37,7 +38,7 @@ function renderProgress(t,meta={}){
  if(lastPublishedYear!==y){lastPublishedYear=y;document.dispatchEvent(new CustomEvent("simulakron:time-coordinate",{detail:{year:y}}));}
  const delta=elapsed(chosen.year,y);
  $("cw-interval").textContent=delta===0?"SEÇİLEN DÖNEM":Math.abs(delta).toLocaleString("tr-TR")+" YIL "+(delta>0?"SONRA":"ÖNCE");
- if(meta.autoplay){const active=nearest(t);if(active!==chosen)renderItem(active,false);}
+ if(meta.autoplay){const active=nearest(t);if(active!==chosen){renderItem(active,false);if(autoNarration)voiceExhibit(active);}}
 }
 function updatePlay(){
  const active=engine?.isPlaying()??false;
@@ -71,6 +72,23 @@ function onStatus(s){
 }
 engine=createChronoRenderer({canvas:$("cw-canvas"),viewport,onProgress:renderProgress,onStatus,onHuman:(message)=>{$("cw-human-status").textContent=message}});
 changePosition(scaleYear(initial),true);
+function voiceExhibit(item){
+ if(!("speechSynthesis" in window))return;
+ // Interrupt only when the actual exhibit changes, never every animation frame.
+ const idx=at(item);if(idx===lastNarration)return;lastNarration=idx;
+ speechSynthesis.cancel();
+ const msg=new SpeechSynthesisUtterance(quote(item)+" "+item.description);
+ msg.lang="tr-TR";msg.rate=.96;msg.pitch=.95;
+ speechSynthesis.speak(msg);
+}
+const narrator=$("cw-auto-narration");
+narrator?.addEventListener("click",()=>{
+ if(!("speechSynthesis" in window)){narrator.textContent="BU CİHAZ SESLİ OKUMAYI DESTEKLEMİYOR";return;}
+ autoNarration=!autoNarration;lastNarration=-1;
+ narrator.setAttribute("aria-pressed",String(autoNarration));
+ narrator.textContent=autoNarration?"◉ ARŞİV ZEKÂ Ω-9 · SESLİ REHBER AÇIK":"◉ ARŞİV ZEKÂ Ω-9 · SESLİ REHBER KAPALI";
+ if(autoNarration)voiceExhibit(chosen);else speechSynthesis.cancel();
+});
 const humanButton=$("cw-human-load");
 humanButton?.addEventListener("click",async()=>{
   if(!engine?.isReady()){
@@ -135,4 +153,4 @@ $("cw-speak").addEventListener("click",()=>{
  spoken.lang="tr-TR";spoken.rate=.93;speechSynthesis.speak(spoken);
 });
 window.addEventListener("pagehide",()=>{engine?.destroy();if("speechSynthesis" in window)speechSynthesis.cancel()});
-document.addEventListener("visibilitychange",()=>{if(document.hidden)engine?.pause()});
+document.addEventListener("visibilitychange",()=>{if(document.hidden){engine?.pause();if("speechSynthesis" in window)speechSynthesis.cancel();}});
