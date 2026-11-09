@@ -169,3 +169,109 @@ footer a{color:#e8c28c}
 .human-encounter button{width:100%;border:1px solid #eccba0;border-radius:8px;padding:12px;background:#e5bb84;color:#172e37;font-size:12px;font-weight:850;cursor:pointer}
 .human-encounter button:disabled{cursor:default;opacity:.75}
 .human-encounter>a{color:#9de6d2;font-size:11px;text-decoration:underline;text-underline-offset:3px}
+
+
+/* V3.3 clickable year portals: finger-friendly hotspot and evidence-first archive overlay. */
+.cw-open-current{
+ position:absolute;z-index:4;left:50%;bottom:52px;transform:translateX(-50%);
+ border:1px solid #efca99;border-radius:999px;background:linear-gradient(125deg,#e5bc85,#cba36d);
+ color:#112d35;min-height:45px;padding:11px 18px;font:850 11px "Space Grotesk",system-ui,sans-serif;
+ letter-spacing:.09em;box-shadow:0 4px 28px #0009,0 0 21px #caa37a44;white-space:nowrap;
+}
+.cw-open-current:focus-visible,.cw-exhibit-modal button:focus-visible,.cw-exhibit-modal a:focus-visible{
+ outline:3px solid #fff;outline-offset:3px;
+}
+.cw-exhibit-modal[hidden]{display:none!important;}
+.cw-exhibit-modal{
+ position:fixed;inset:0;display:grid;place-items:center;z-index:99999;
+ padding:clamp(8px,3vw,25px);isolation:isolate;
+}
+.cw-exhibit-backdrop{position:absolute;inset:0;background:#020c15e8;backdrop-filter:blur(13px);-webkit-backdrop-filter:blur(13px);}
+.cw-exhibit-card{
+ position:relative;z-index:1;width:min(780px,100%);max-height:min(92dvh,900px);overflow-y:auto;
+ background:#102934;border:1px solid #70908a;border-radius:15px;
+ box-shadow:0 25px 70px #000a;color:#e9f1e8;scrollbar-color:#577c7a #112f3a;
+}
+.cw-exhibit-header{
+ display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 17px;
+ border-bottom:1px solid #3c6467;background:#132f39;
+ font-size:10px;letter-spacing:.12em;font-weight:850;color:#b9d8cb;
+}
+.cw-exhibit-header button{
+ width:39px;height:39px;flex-shrink:0;border:1px solid #62837c;border-radius:8px;
+ background:#21434c;color:#fff;font-size:20px;font-weight:600;
+}
+.cw-exhibit-art{
+ min-height:225px;position:relative;overflow:hidden;padding:29px 23px 21px;
+ display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
+ background:radial-gradient(ellipse at 70% 55%,#3c625e,#132f43 44%,#0b1b30 95%);
+}
+.cw-exhibit-art::before{
+ content:"";position:absolute;inset:-70%;pointer-events:none;opacity:.52;
+ background:repeating-radial-gradient(ellipse at 50% 50%,transparent 0,transparent 32px,#80aeb81b 34px,#afd4be12 38px);
+ transform:rotate(19deg);
+}
+.cw-exhibit-art::after{
+ content:"";position:absolute;pointer-events:none;right:8%;top:5%;width:35%;aspect-ratio:1;border-radius:50%;
+ background:radial-gradient(circle at 32% 30%,#cce7c020,#5b8c8940 35%,#183f5a22 66%,transparent 70%);
+ border:1px solid #a0ceb030;box-shadow:0 0 70px #b7d7ac12,inset -28px -21px 30px #001e2650;
+}
+.cw-exhibit-year,.cw-exhibit-group,.cw-exhibit-badges,.cw-exhibit-art>p{
+ position:relative;z-index:2;text-shadow:0 2px 16px #001f34b9;
+}
+.cw-exhibit-year{
+ font:800 clamp(43px,7.3vw,79px)/1 "Space Grotesk",system-ui,sans-serif;
+ letter-spacing:-.08em;color:#f3ca97;font-variant-numeric:tabular-nums;
+}
+.cw-exhibit-group{font-size:11px;letter-spacing:.17em;font-weight:800;color:#b9f0db;margin:13px 0;}
+.cw-exhibit-badges{display:flex;gap:8px;flex-wrap:wrap;}
+.cw-exhibit-badges span{border:1px solid #78b7a3;color:#d1f0db;background:#163f46c9;border-radius:7px;padding:7px 10px;font-size:10px;font-weight:850;}
+.cw-exhibit-art>p{font-size:9px;color:#9fc0c3;letter-spacing:.08em;margin:20px 0 0;}
+.cw-exhibit-modal[data-level="fiction"] .cw-exhibit-art{
+ background:radial-gradient(ellipse at 70% 45%,#564576,#1b315a 45%,#111b30 94%);
+}
+.cw-exhibit-modal[data-level="fiction"] .cw-exhibit-year{color:#dbc4ff;}
+.cw-exhibit-modal[data-level="fiction"] .cw-exhibit-badges span{border-color:#a99bcd;color:#e4d9ff;background:#342b50aa;}
+.cw-exhibit-modal[data-level="inference"] .cw-exhibit-art{
+ background:radial-gradient(ellipse at 70% 45%,#645545,#283d43 49%,#111e2b 95%);
+}
+.cw-exhibit-information{padding:23px 27px 26px;}
+.cw-exhibit-information h2{
+ font:800 clamp(24px,4vw,34px)/1.22 "Space Grotesk",system-ui,sans-serif;
+ letter-spacing:-.035em;margin:0 0 11px;color:#f1eee3;
+}
+.cw-exhibit-information>p{color:#c3d5d4;font-size:14px;line-height:1.8;margin:0 0 22px;}
+.cw-exhibit-facts{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.cw-exhibit-facts>div{
+ border:1px solid #45676e;border-left:3px solid #86d9b4;background:#193640;border-radius:8px;padding:14px 16px;
+}
+.cw-exhibit-facts>div:last-child{border-left-color:#deb17d;background:#26343b;}
+.cw-exhibit-facts h3{font-size:12px;letter-spacing:.035em;margin:0 0 8px;color:#b6ead8;}
+.cw-exhibit-facts>div:last-child h3{color:#f1c691;}
+.cw-exhibit-facts p{font-size:12px;line-height:1.7;color:#c0d6d3;margin:0;}
+.cw-exhibit-references{margin-top:21px;padding-top:17px;border-top:1px solid #3c5963;}
+.cw-exhibit-references h3{font-size:12px;letter-spacing:.12em;color:#a6d6c5;margin:0 0 12px;}
+#cw-modal-sources{display:flex;flex-wrap:wrap;gap:9px;color:#9eafb1;font-size:12px;line-height:1.65;}
+#cw-modal-sources a{
+ padding:10px 13px;color:#f5d6a2;text-decoration:none;background:#24424b;
+ border:1px solid #6e8b83;border-radius:8px;font-size:12px;font-weight:750;
+}
+.cw-exhibit-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:24px;}
+.cw-exhibit-actions button{
+ min-height:46px;border-radius:8px;font-weight:850;font-size:11px;padding:12px 10px;
+ letter-spacing:.035em;border:1px solid #5e7d7c;background:#25454d;color:#eaf2e7;
+}
+.cw-exhibit-actions button:last-child{background:#e5bb85;color:#18323a;border-color:#e5bb85;}
+body.cw-dialog-open{overflow:hidden;}
+@media(max-width:600px){
+ .cw-open-current{bottom:43px;font-size:10px;min-height:42px;padding:10px 13px}
+ .cw-exhibit-modal{padding:7px;align-items:end}
+ .cw-exhibit-card{max-height:95dvh;border-radius:15px 15px 8px 8px}
+ .cw-exhibit-art{min-height:186px;padding:21px 17px}
+ .cw-exhibit-year{font-size:50px}
+ .cw-exhibit-information{padding:19px 15px 22px}
+ .cw-exhibit-facts{grid-template-columns:1fr}
+ .cw-exhibit-header{padding:9px 13px}
+ .cw-exhibit-actions{gap:7px}
+}
+@media(prefers-reduced-motion:reduce){.cw-exhibit-art::before{animation:none!important}}
