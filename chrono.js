@@ -69,8 +69,22 @@ function onStatus(s){
  if(s==="ended")$("render-status").textContent="◈ YIL 3000 / KURGU";
  updatePlay();
 }
-engine=createChronoRenderer({canvas:$("cw-canvas"),viewport,onProgress:renderProgress,onStatus});
+engine=createChronoRenderer({canvas:$("cw-canvas"),viewport,onProgress:renderProgress,onStatus,onHuman:(message)=>{$("cw-human-status").textContent=message}});
 changePosition(scaleYear(initial),true);
+const humanButton=$("cw-human-load");
+humanButton?.addEventListener("click",async()=>{
+  if(!engine?.isReady()){
+    $("cw-human-status").textContent="3D koridor bu cihazda çalışmıyor; kaynak sayfasından modeli açabilirsin.";
+    return;
+  }
+  humanButton.disabled=true;
+  humanButton.textContent="◌ ANATOMİK MODEL İNDİRİLİYOR";
+  const today=EXHIBITS.find(e=>e.year===2026);
+  if(today){renderItem(today,true);changePosition(scaleYear(2026));}
+  const success=await engine.loadHuman();
+  humanButton.disabled=Boolean(success);
+  humanButton.textContent=success?"✓ İNSAN REFERANSI HAZIR":"↺ YÜKLEMEYİ TEKRAR DENE";
+});
 const speedControl=$("cw-speed"),qualityControl=$("cw-quality");
 speedControl?.addEventListener("input",e=>{
   const v=Number(e.target.value);
