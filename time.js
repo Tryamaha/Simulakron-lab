@@ -42,7 +42,7 @@ function setStop(n){
   viewer.alt=s.name+" için temsili üç boyutlu sahne";
   document.dispatchEvent(new CustomEvent("simulakron:time-stop",{detail:{year:s.year,fiction:!!s.fiction,name:s.name}}));
   [...stopsBox.children].forEach((x,i)=>{x.classList.toggle("active",i===index);x.setAttribute("aria-pressed",String(i===index))});
-  if(location.hash.slice(1)!==String(index))history.replaceState(null,"","#"+index);
+  if(location.hash!=="#physics-lab"&&location.hash.slice(1)!==String(index))history.replaceState(null,"","#"+index);
 }
 $("years").addEventListener("input",e=>setStop(Number(e.target.value)));
 function reply(query){
@@ -70,3 +70,4 @@ $("scene3d").addEventListener("ar-status",e=>{
   if(e.detail.status==="failed")alert("AR açılamadı. iPhone Safari'de ve AR destekli cihazda tekrar dene.");
 });
 setStop(Number.isInteger(Number(location.hash.slice(1)))&&location.hash?Number(location.hash.slice(1)):0);
+if(location.hash==="#physics-lab")setTimeout(()=>document.getElementById("physics-lab")?.scrollIntoView({behavior:"smooth",block:"start"}),200);
