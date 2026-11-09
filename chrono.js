@@ -6,6 +6,7 @@ const safe=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"
 const LABEL={evidence:"TARİHSEL / ARKEOLOJİK KANIT",inference:"DOLAYLI KANIT / YORUM",fiction:"GELECEK KURGUSU / SENARYO"};
 let chosen=EXHIBITS[0],engine=null,pressed=null;
 const slider=$("cw-slider"),rail=$("cw-events"),viewport=$("cw-viewport"),play=$("cw-play");
+let lastPublishedYear=null;
 function at(x){return EXHIBITS.findIndex(y=>y.year===x.year);}
 function quote(item){
  if(item.type==="fiction")return "Kaşif, "+yearText(item.year)+" arşivi yok. Bu dönem tahmin ve kurgu alanı. "+item.unknown;
@@ -33,6 +34,7 @@ function renderItem(item,scroll=false){
 }
 function renderProgress(t,meta={}){
  const y=unscaleYear(t);$("cw-year").textContent=yearText(y);slider.value=String(Math.round(t*10000));
+ if(lastPublishedYear!==y){lastPublishedYear=y;document.dispatchEvent(new CustomEvent("simulakron:time-coordinate",{detail:{year:y}}));}
  const delta=elapsed(chosen.year,y);
  $("cw-interval").textContent=delta===0?"SEÇİLEN DÖNEM":Math.abs(delta).toLocaleString("tr-TR")+" YIL "+(delta>0?"SONRA":"ÖNCE");
  if(meta.autoplay){const active=nearest(t);if(active!==chosen)renderItem(active,false);}
