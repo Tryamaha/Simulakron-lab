@@ -53,7 +53,7 @@ header a{font-size:11px;color:#c3d7d0;letter-spacing:.08em;font-weight:800}
 footer{margin-top:33px;border-top:1px solid #35565e;padding-top:23px;font-size:11px;color:#86a9ae}
 @media(max-width:850px){.workspace{grid-template-columns:1fr}.audit{padding:18px}.wrap{padding:0 14px 30px}}
 @media(max-width:570px){.wrap{padding:0 10px 25px}header{gap:5px}header strong{font-size:15px}header a{font-size:9px}.top{padding:25px 0}.tiles{grid-template-columns:1fr}#model-stage{height:116vw;min-height:330px;max-height:550px}.panelhead{font-size:9px;padding:12px}}
-</style></head>
+.anatomy-lab{margin-top:35px;background:radial-gradient(ellipse at 70% 20%,#24464b,#0e2732 70%);border:1px solid #527477;border-radius:15px;padding:23px}.anatomy-intro h2{font:700 clamp(23px,3vw,36px) "Space Grotesk",sans-serif;letter-spacing:-.05em;margin:0 0 12px}.anatomy-intro h2 em{font-style:normal;color:#e8b97e}.anatomy-intro p:last-child{max-width:770px;color:#b9d2ce;line-height:1.7;font-size:13px}.anatomy-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(200px,.9fr);gap:13px;margin-top:21px}.anatomy-viewer{background:#09202a;border:1px solid #547378;border-radius:12px;padding:13px}.anatomy-viewer model-viewer{display:block;width:100%;height:420px;border-radius:9px;background:radial-gradient(circle,#536f71,#152b34 73%)}.anatomy-poster{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;gap:13px;font:800 15px system-ui;color:#e2e9dc}.anatomy-poster span{font-size:11px;font-weight:500;color:#b1ccc6}.load-anatomy{width:100%;padding:13px 10px;margin-top:12px;background:#e3ba81;border:0;border-radius:8px;color:#142b32;font-weight:850;font-size:12px}.anatomy-viewer>p{color:#9ab9ba;font-size:11px;line-height:1.6}.anatomy-evidence{display:grid;grid-template-columns:1fr 1fr;gap:10px}.anatomy-evidence>div{border:1px solid #4b6e6b;background:#1c3740;border-radius:10px;padding:14px}.anatomy-evidence span{display:block;font-size:9px;letter-spacing:.13em;color:#9fc7c0;font-weight:800}.anatomy-evidence strong{display:block;color:#e8bc85;font-size:25px;margin:12px 0}.anatomy-evidence small{display:block;color:#b3ceca;font-size:11px;line-height:1.6}.anatomy-credit{color:#97bab8;line-height:1.7;font-size:11px;margin-top:17px}.anatomy-credit a{text-decoration:underline;color:#e4c294}@media(max-width:780px){.anatomy-grid{grid-template-columns:1fr}.anatomy-viewer model-viewer{height:370px}}@media(max-width:480px){.anatomy-lab{padding:16px 10px}.anatomy-evidence strong{font-size:19px}}</style></head>
 <body><div class="wrap">
 <header><a href="./">← ATLAS</a><strong>◈ SIMÜLAKRON <span>ANTROPOLOJİ</span></strong><a href="./chrono.html">ZAMAN KORİDORU ↗</a></header>
 <section class="top"><p class="overline">MÜZE DÜZEYİ MODELLEMEYE GEÇİŞ / LAB 001</p><h1>Bir yüz değil, <em>kanıtını</em> incele.</h1><p>Daha fazla poligon bir görüntüyü tarihsel olarak doğru yapmaz. Bu laboratuvar, anatomik gösterim ile tarihî kişilerin yüz rekonstrüksiyonu arasındaki bilimsel sınırı gösterir.</p></section>
@@ -86,7 +86,29 @@ footer{margin-top:33px;border-top:1px solid #35565e;padding-top:23px;font-size:1
 <article><b>03</b><h3>Sinematik kurgu</h3><p>Duygusal olarak etkileyici olabilir. Ancak bir görselin gerçekçi görünmesi, geçmişe dair yeni kanıt üretmez.</p></article>
 </section>
 <div class="bottom"><a href="./chrono.html">◈ ChronoWorm Zaman Koridoru ↗</a><a href="./time.html#physics-lab">⚛ Zamanın Fiziği ↗</a><a href="./globe.html">◎ Dünya Küresi ↗</a></div>
-<footer>SIMÜLAKRON / ANTROPOLOJİ LABORATUVARI · BİLGİ DÜZEYİ VE KAYNAK AYRIMI</footer>
+<section class="anatomy-lab" id="anatomical-reference" aria-labelledby="anatomy-heading">
+ <div class="anatomy-intro">
+  <p class="overline">YÜKSEK AYRINTI / BİLİMSEL ANATOMİ REFERANSI</p>
+  <h2 id="anatomy-heading">Oyuncak figür değil: <em>gerçek anatomik yapı.</em></h2>
+  <p>İnsan modellerinin güvenilir başlangıç noktası, kaynağı belli kemik ve kas geometrileridir. Bu görsel model <strong>634 adlandırılmış anatomik yapıyı</strong> içerir. Deri, giysi ve yüz görünümü burada yoktur; tarih öncesindeki bir kişinin yüzünün birebir canlandırılması olarak sunulmuyor.</p>
+ </div>
+ <div class="anatomy-grid">
+  <div class="anatomy-viewer">
+   <model-viewer id="ecorche" alt="Kaynaklı kemik ve kas sistemini gösteren anatomik insan vücut modeli" camera-controls touch-action="pan-y" environment-image="neutral" shadow-intensity=".9" exposure="1.4" camera-orbit="30deg 80deg 3.8m" min-camera-orbit="auto auto 1.3m" max-camera-orbit="auto auto 8m">
+    <div slot="poster" class="anatomy-poster">YÜKSEK AYRINTILI ANATOMİK İNSAN<br><span>3D modeli isteğe bağlı yükle</span></div>
+   </model-viewer>
+   <button type="button" id="load-ecorche" class="load-anatomy">◈ 634 YAPILI ANATOMİ MODELİNİ YÜKLE</button>
+   <p id="ecorche-status" role="status">Dosya yaklaşık 14 MB'dır. Cihazda bellek ve internet bağlantısı gerekir; otomatik indirilmez.</p>
+  </div>
+  <div class="anatomy-evidence">
+   <div><span>YÜKSEK AYRINTI</span><strong>~985 bin</strong><small>Üçgen yüzey · modelin beyan ettiği geometri</small></div>
+   <div><span>ANATOMİK YAPI</span><strong>634</strong><small>Adlandırılmış kemik, kıkırdak, diş ve kas</small></div>
+   <div><span>KANIT DÜZEYİ</span><strong>Anatomi</strong><small>Modern insan anatomisi için eğitim modeli, tarihî bireye ait tarama değil</small></div>
+   <div><span>GÖRSEL SINIR</span><strong>Yüz = yorum</strong><small>Gerçek fosil kanıtı olmadan birebir tarihî yüz üretilmez</small></div>
+  </div>
+ </div>
+ <div class="anatomy-credit">Model: <a href="https://github.com/Charleeh/ecorche" target="_blank" rel="noopener noreferrer">Écorché / Charleeh ↗</a> · CC BY-SA 4.0 · BodyParts3D / Z-Anatomy temelli. Bağımsız üçüncü taraf dosyasıdır. Yükleme sırasında GitHub'dan indirilir. <a href="https://github.com/Charleeh/ecorche/blob/main/ATTRIBUTION.md" target="_blank" rel="noopener noreferrer">Açık lisans ve kaynaklar ↗</a></div>
+</section><footer>SIMÜLAKRON / ANTROPOLOJİ LABORATUVARI · BİLGİ DÜZEYİ VE KAYNAK AYRIMI</footer>
 </div>
 <script>
 const model=document.getElementById("skull"),status=document.getElementById("model-state"),button=document.getElementById("load"),poster=document.getElementById("poster");
@@ -99,4 +121,17 @@ button.addEventListener("click",()=>{
 model.addEventListener("load",()=>{status.remove();poster.style.display="none";button.textContent="◉ MODEL HAZIR · DÖNDÜR VE YAKINLAŞTIR";});
 model.addEventListener("error",()=>{button.disabled=false;button.textContent="↺ YENİDEN DENE";model.removeAttribute("src");status.textContent="Model yüklenemedi veya gelişmiş malzemeler desteklenmedi; örnek render gösteriliyor.";});
 </script>
-</body></html>
+<script>
+(()=>{
+const button=document.getElementById("load-ecorche"),model=document.getElementById("ecorche"),note=document.getElementById("ecorche-status");
+const url="https://raw.githubusercontent.com/Charleeh/ecorche/main/model/ecorche.glb";
+button.addEventListener("click",()=>{
+ if(model.src)return;
+ button.disabled=true;button.textContent="◌ ANATOMİK MODEL YÜKLENİYOR";
+ note.textContent="Kaynaklı yüksek ayrıntılı model indiriliyor, internet gerekir…";
+ model.src=url;
+});
+model.addEventListener("load",()=>{note.textContent="Anatomik referans hazır. Modeli sürükleyerek döndür, parmaklarınla yakınlaştır. Bu tarihî insanın birebir görünümü değildir.";button.textContent="◉ MODEL YÜKLENDİ";});
+model.addEventListener("error",()=>{button.disabled=false;button.textContent="↺ TEKRAR DENE";model.removeAttribute("src");note.textContent="Model indirilemedi. Kaynak bağlantısını kontrol et veya daha sonra tekrar dene.";});
+})();
+</script></body></html>
