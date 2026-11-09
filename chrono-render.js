@@ -48,8 +48,37 @@ export function createChronoRenderer({canvas,viewport,onProgress=()=>{},onStatus
    const t=clamp(scaleYear(item.year),.00001,.99999),gate=new THREE.Mesh(ringGeometry,materials[item.type]);
    gate.position.copy(curve.getPointAt(t));
    gate.quaternion.setFromUnitVectors(new THREE.Vector3(0,0,1),curve.getTangentAt(t));
-   railing.push({mesh:gate,t});
+   railing.push({mesh:gate,t,item});
    scene.add(gate);
+  }
+  // Each archive gate is accompanied by an actual 3D billboard.
+  // This makes historical years appear inside the passage while travelling.
+  const stamp=(item)=>{
+   const c=document.createElement("canvas");c.width=640;c.height=176;
+   const x=c.getContext("2d");
+   x.fillStyle="rgba(3,16,27,.88)";x.fillRect(0,0,640,176);
+   x.strokeStyle=item.type==="fiction"?"#c6a5f4":item.type==="evidence"?"#8ee4d1":"#f3ba83";
+   x.lineWidth=4;x.strokeRect(4,4,632,168);
+   const year=item.year<0?"MÖ "+Math.abs(item.year):String(item.year);
+   x.fillStyle="#f3e7d1";x.font="bold 43px system-ui";x.fillText(year,28,61);
+   x.font="bold 30px system-ui";x.fillStyle="#b5e0d8";
+   x.fillText(item.label.slice(0,29),28,111);
+   x.font="bold 16px system-ui";x.fillStyle="#91b1bd";
+   x.fillText((item.type==="fiction"?"GELECEK KURGUSU":item.type==="evidence"?"KANITA DAYALI":"YORUM / ÇIKARIM")+"  •  SİMÜLASYON",28,146);
+   const tex=new THREE.CanvasTexture(c);tex.colorSpace=THREE.SRGBColorSpace;tex.anisotropy=Math.min(4,renderer.capabilities.getMaxAnisotropy());
+   const sprite=new THREE.Sprite(new THREE.SpriteMaterial({map:tex,transparent:true,depthTest:true,depthWrite:false}));
+   sprite.scale.set(3.1,.85,1);
+   return sprite;
+  };
+  for(const gate of railing){
+    const item=gate.item;
+    const plaque=stamp(item);
+    const tangent=curve.getTangentAt(gate.t);
+    const side=new THREE.Vector3().crossVectors(tangent,new THREE.Vector3(0,1,0)).normalize();
+    plaque.position.copy(gate.mesh.position).addScaledVector(side,1.95);
+    plaque.position.y+=.72;
+    gate.billboard=plaque;
+    scene.add(plaque);
   }
   const particleCount=2400,positions=new Float32Array(particleCount*3);
   let seed=98109;
@@ -99,7 +128,7 @@ export function createChronoRenderer({canvas,viewport,onProgress=()=>{},onStatus
   mat.uniforms.uVelocity.value=autoplay?speed:0;
   mat.uniforms.uChronology.value=t;
   mat.uniforms.uDetail.value=visualQuality;
-  for(const gate of railing){gate.mesh.visible=Math.abs(gate.t-t)<.15;}
+  for(const gate of railing){const visible=Math.abs(gate.t-t)<.10;gate.mesh.visible=visible;gate.billboard.visible=visible;}
   renderer.render(scene,camera);
   if(performance.now()-lastRead>80){lastRead=performance.now();onProgress(current,{autoplay,target});}
  }
