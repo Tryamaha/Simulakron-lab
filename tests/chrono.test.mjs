@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {EXHIBITS,MIN_YEAR,MAX_YEAR,scaleYear,unscaleYear,elapsed,yearText,nearest} from "../chrono-data.js";
 import {CO2_GLOBAL_ANNUAL,CO2_FIRST_YEAR,CO2_LAST_YEAR,co2ForYear} from "../co2-annual-data.js";
+import {tunnelVertex,tunnelFragment} from "../chrono-shaders.js";
 
 test("Time tunnel has 20 strictly chronological exhibits",()=>{
  assert.equal(EXHIBITS.length,20);
@@ -62,4 +63,14 @@ test("Observed NOAA annual CO2 values are finite, physically plausible, and posi
  assert.ok(CO2_GLOBAL_ANNUAL.every(x=>Number.isFinite(x)&&x>300&&x<500));
  assert.equal(yearText(-9600),"MÖ 9.600");
  assert.equal(yearText(2026),"2026");
+});
+
+test("ChronoWorm GPU shader declares all physically-labeled visualization uniforms",()=>{
+ for(const name of ["uTime","uVelocity","uChronology","uDetail"]){
+  assert.ok(tunnelFragment.includes("uniform float "+name+";"),name);
+ }
+ for(const varying of ["vUv0","vDepth","vViewPosition","vNormal"]){
+  assert.ok(tunnelVertex.includes("varying "+(varying==="vUv0"?"vec2 ":"float ").replace("float ",varying==="vNormal"||varying==="vViewPosition"?"vec3 ":"float ")+varying+";"));
+  assert.ok(tunnelFragment.includes(varying));
+ }
 });
