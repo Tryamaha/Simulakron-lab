@@ -8,8 +8,9 @@ import {createHumanEncounter} from "./chrono-human.js";
  * Positions along the tunnel are proportional to elapsed CALENDAR years.
  * It does not simulate a traversable relativistic wormhole.
  */
-export function createChronoRenderer({canvas,viewport,onProgress=()=>{},onStatus=()=>{},onHuman=()=>{}}){
+export function createChronoRenderer({canvas,viewport,onProgress=()=>{},onStatus=()=>{},onHuman=()=>{},onSelect=()=>{}}){
  let scene,camera,renderer,clock,curve,frames,mat,railing=[],light,human=null,particleGeometry=null,totalParticles=0;
+ let raycaster=null,pointerNDC=null; const hitTargets=[];
  let smoothFov=72,headTurn={x:0,y:0},desiredHead={x:0,y:0};
  let current=0,target=0,autoplay=false,raf=null,lastRead=-100,speed=1,visualQuality=1,elapsed=0;
  const reduced=window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches||false;
@@ -30,6 +31,7 @@ export function createChronoRenderer({canvas,viewport,onProgress=()=>{},onStatus
   renderer.outputColorSpace=THREE.SRGBColorSpace;
   renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.6));
   scene=new THREE.Scene();
+  raycaster=new THREE.Raycaster();pointerNDC=new THREE.Vector2();
   scene.background=new THREE.Color(0x030c16);
   camera=new THREE.PerspectiveCamera(72,1,.025,170);
   clock=new THREE.Clock();
@@ -54,6 +56,18 @@ export function createChronoRenderer({canvas,viewport,onProgress=()=>{},onStatus
    gate.quaternion.setFromUnitVectors(new THREE.Vector3(0,0,1),curve.getTangentAt(t));
    railing.push({mesh:gate,t,item});
    scene.add(gate);
+   // Transparent hit surface: a ring alone is too thin for touch input on phones.
+   const targetMesh=new THREE.Mesh(
+    new THREE.CircleGeometry(3.44,48),
+    new THREE.MeshBasicMaterial({side:THREE.DoubleSide,transparent:true,opacity:0,depthWrite:false,colorWrite:false})
+   );
+   targetMesh.position.copy(gate.position);
+   targetMesh.quaternion.copy(gate.quaternion);
+   targetMesh.userData.exhibit=item;
+   gate.userData.exhibit=item;
+   scene.add(targetMesh);
+   railing.at(-1).hit=targetMesh;
+   hitTargets.push(targetMesh);
   }
   // Each archive gate is accompanied by an actual 3D billboard.
   // This makes historical years appear inside the passage while travelling.
@@ -82,6 +96,8 @@ export function createChronoRenderer({canvas,viewport,onProgress=()=>{},onStatus
     plaque.position.copy(gate.mesh.position).addScaledVector(side,1.95);
     plaque.position.y+=.72;
     gate.billboard=plaque;
+    plaque.userData.exhibit=item;
+    hitTargets.push(plaque);
     scene.add(plaque);
   }
   human=createHumanEncounter({THREE,scene,curve,t:scaleYear(2026),notify:onHuman});
@@ -153,7 +169,7 @@ export function createChronoRenderer({canvas,viewport,onProgress=()=>{},onStatus
   mat.uniforms.uVelocity.value=reduced?0:(autoplay?speed:.05);
   mat.uniforms.uChronology.value=t;
   mat.uniforms.uDetail.value=visualQuality;
-  for(const gate of railing){const visible=Math.abs(gate.t-t)<.10;gate.mesh.visible=visible;gate.billboard.visible=visible;}
+  for(const gate of railing){const visible=Math.abs(gate.t-t)<.10;gate.mesh.visible=visible;gate.billboard.visible=visible;gate.hit.visible=visible;}
   human?.visible(t);
   renderer.render(scene,camera);
   if(performance.now()-lastRead>80){lastRead=performance.now();onProgress(current,{autoplay,target});}
@@ -161,6 +177,21 @@ export function createChronoRenderer({canvas,viewport,onProgress=()=>{},onStatus
  try{setup()}catch(e){console.error("ChronoWorm WebGL:",e);onStatus("unavailable");}
  return {
   isReady:()=>!!renderer&&!!scene,
+  pick(clientX,clientY){
+   // A pointer release without dragging invokes this; returns true only on a visible 3D gate.
+   if(!renderer||!camera||!raycaster)return false;
+   const bounds=canvas.getBoundingClientRect();
+   if(!bounds.width||!bounds.height)return false;
+   pointerNDC.set(((clientX-bounds.left)/bounds.width)*2-1,1-((clientY-bounds.top)/bounds.height)*2);
+   camera.updateMatrixWorld();
+   raycaster.setFromCamera(pointerNDC,camera);
+   const hits=raycaster.intersectObjects(hitTargets.filter(mesh=>mesh.visible),false);
+   for(const hit of hits){
+    const item=hit.object.userData.exhibit;
+    if(item){onSelect(item);return true;}
+   }
+   return false;
+  },
   loadHuman:()=>human?.load()??Promise.resolve(false),
   setSpeed(v){speed=clamp(Number(v)||1,.15,4)},
   setQuality(v){
