@@ -8,7 +8,8 @@ import {EXHIBITS,scaleYear} from "./chrono-data.js";
  * It does not simulate a traversable relativistic wormhole.
  */
 export function createChronoRenderer({canvas,viewport,onProgress=()=>{},onStatus=()=>{}}){
- let scene,camera,renderer,clock,curve,mat,railing=[],light;
+ let scene,camera,renderer,clock,curve,frames,mat,railing=[],light;
+ let smoothFov=72,headTurn={x:0,y:0},desiredHead={x:0,y:0};
  let current=0,target=0,autoplay=false,raf=null,lastRead=-100,speed=1,visualQuality=1,elapsed=0;
  const reduced=window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches||false;
  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
@@ -32,6 +33,8 @@ export function createChronoRenderer({canvas,viewport,onProgress=()=>{},onStatus
   camera=new THREE.PerspectiveCamera(72,1,.025,170);
   clock=new THREE.Clock();
   curve=makeCurve();
+  // Parallel-transported local frames reduce sudden camera roll in bent sections.
+  frames=curve.computeFrenetFrames(700,false);
   const g=new THREE.TubeGeometry(curve,700,4.35,30,false);
   mat=new THREE.ShaderMaterial({
    vertexShader:tunnelVertex,fragmentShader:tunnelFragment,
@@ -100,6 +103,14 @@ export function createChronoRenderer({canvas,viewport,onProgress=()=>{},onStatus
   })));
   light=new THREE.PointLight(0x7ad4bd,12,18,2);scene.add(light);
   resize();new ResizeObserver(resize).observe(viewport);window.addEventListener("resize",resize);
+  // Small look offset creates a first-person sliding effect without changing calendar time.
+  viewport.addEventListener("pointermove",e=>{
+    if(e.buttons||e.pressure>0)return;
+    const rect=viewport.getBoundingClientRect();
+    desiredHead.x=clamp(((e.clientX-rect.left)/rect.width-.5)*.065,-.032,.032);
+    desiredHead.y=clamp(((e.clientY-rect.top)/rect.height-.5)*-.045,-.024,.024);
+  });
+  viewport.addEventListener("pointerleave",()=>{desiredHead.x=0;desiredHead.y=0});
   loop();onStatus("running");
  }
  function resize(){
@@ -118,14 +129,24 @@ export function createChronoRenderer({canvas,viewport,onProgress=()=>{},onStatus
   const delta=target-current;
   current+=Math.abs(delta)<.000005?delta:delta*Math.min(1,dt*(reduced?20:3.6));
   const t=clamp(current,.00007,.999);
-  const p=curve.getPointAt(t),f=curve.getPointAt(clamp(t+.008,.00008,1));
-  camera.position.copy(p);
-  if(!reduced)camera.position.y+=Math.sin(clock.elapsedTime*.56)*.014;
-  camera.lookAt(f);
+  const p=curve.getPointAt(t),tangent=curve.getTangentAt(t);
+  const index=Math.min(699,Math.floor(t*700));
+  const up=frames.normals[index].clone().lerp(frames.normals[index+1],t*700-index).normalize();
+  const right=frames.binormals[index].clone().lerp(frames.binormals[index+1],t*700-index).normalize();
+  const k=clamp(dt*3.8,0,1);
+  headTurn.x+=((reduced?0:desiredHead.x)-headTurn.x)*k;
+  headTurn.y+=((reduced?0:desiredHead.y)-headTurn.y)*k;
+  camera.position.copy(p).addScaledVector(right,headTurn.x).addScaledVector(up,headTurn.y);
+  // Look along the actual tangent: motion through a curved tube rather than jumping between static rings.
+  camera.up.copy(up);
+  camera.lookAt(p.clone().addScaledVector(tangent,4.0).addScaledVector(right,headTurn.x*1.5));
+  const requestedFov=reduced?72:72+(autoplay?Math.min(11,speed*3.8):0);
+  smoothFov+=(requestedFov-smoothFov)*Math.min(1,dt*2.5);
+  if(Math.abs(camera.fov-smoothFov)>.01){camera.fov=smoothFov;camera.updateProjectionMatrix();}
   light.position.copy(p);
   elapsed+=dt;
   mat.uniforms.uTime.value=elapsed;
-  mat.uniforms.uVelocity.value=autoplay?speed:0;
+  mat.uniforms.uVelocity.value=reduced?0:(autoplay?speed:.05);
   mat.uniforms.uChronology.value=t;
   mat.uniforms.uDetail.value=visualQuality;
   for(const gate of railing){const visible=Math.abs(gate.t-t)<.10;gate.mesh.visible=visible;gate.billboard.visible=visible;}
