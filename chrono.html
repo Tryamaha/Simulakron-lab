@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#040e16">
+<meta name="description" content="Simülakron ChronoWorm v3: İçinde hareket edilebilen, yıl mesafesi gerçek takvime bağlı 3D zaman koridoru. Kaynaklı dönemler, kanıt düzeyleri ve kurgu sınırı.">
+<title>ChronoWorm Ω-9 | Simülakron Zaman Gözlemevi</title>
+<link rel="icon" type="image/svg+xml" href="./assets/icon.svg">
+<link rel="stylesheet" href="./chrono.css">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.182.0/build/three.module.js"}}</script>
+<script type="module" src="./chrono.js"></script>
+</head>
+<body>
+<div class="app">
+<header class="header">
+  <a class="home" href="./" aria-label="Ana sayfa">◈ <span>SIMÜLAKRON</span></a>
+  <div class="header-status"><span class="live-dot"></span> ARŞİV İSTASYONU / V3.0</div>
+  <nav class="header-links"><a href="./time.html#physics-lab">⚛ FİZİK</a><a href="./globe.html">◎ KÜRE</a><a href="./telescope.html">⌖ DÜRBÜN</a></nav>
+</header>
+<div class="eyebrow"><span class="rule"></span> Ω-9 / UZAY-ZAMAN ARŞİVİ <span class="rev">DENEYSEL KORİDOR 001</span></div>
+<section class="intro">
+  <div><h1>Zamanın <em>içinden</em> geç.</h1><p>Takvim yıllarını, tarihsel kanıtları ve olası gelecekleri tek bir akışın içinde keşfet. Tünel, fiziksel bir solucan deliği değil; tarihsel zamanın üç boyutlu bir metaforudur.</p></div>
+  <div class="intro-symbol" aria-hidden="true">Ω<small>9</small></div>
+</section>
+<main class="workspace">
+  <section class="simulator" aria-labelledby="sim-heading">
+    <div class="instrument-title">
+       <span><b>01</b> / CHRONO CORRIDOR</span>
+       <strong id="sim-heading">3D ZAMAN GÖRÜNÜMÜ</strong>
+       <span class="sync" id="render-status">◌ MOTOR HAZIRLANIYOR</span>
+    </div>
+    <div class="viewport" id="cw-viewport" tabindex="0" role="application" aria-label="Etkileşimli zaman koridoru. Kaydırarak döneme ilerle, ok tuşlarıyla durağa geç, boşlukla otomatik yolculuğu başlat.">
+      <canvas id="cw-canvas" aria-label="Üç boyutlu kıvrımlı zaman koridoru"></canvas>
+      <div class="fallback" id="cw-fallback" hidden>3D görüntü bu tarayıcıda desteklenmiyor. Aşağıdaki yıl çizgisi ve bilgi kartları kullanılabilir.</div>
+      <div class="viewport-top">
+        <div><span class="panel-tag">KONUM</span><strong id="cw-year">MÖ 12.000</strong></div>
+        <div class="coord"><span>GEZİNME MODU</span><b id="cw-mode">TAKVİM ÖLÇEĞİ</b></div>
+      </div>
+      <div class="viewport-grid" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+      <div class="reticle" aria-hidden="true"><i></i><i></i></div>
+      <div class="viewport-bottom">
+        <span id="cw-nearest">EN YAKIN DÖNEM: İKLİM EŞİĞİ</span>
+        <span class="hud-note">KAYDIR · SÜRÜKLE · OK TUŞLARI</span>
+      </div>
+      <div class="loading" id="cw-loading"><span class="loading-icon">◈</span><strong>UZAY-ZAMAN KORİDORU OLUŞTURULUYOR</strong><small>Bu, bilimsel takvim ölçeğine sahip görsel bir modeldir.</small></div>
+    </div>
+    <div class="flight-controls">
+       <button type="button" id="cw-prev" aria-label="Önceki tarihî durağa git">← <span>ÖNCEKİ DURAK</span></button>
+       <button type="button" id="cw-play" class="control-primary" aria-pressed="false">▶ OTOMATİK GEÇİŞ</button>
+       <button type="button" id="cw-next" aria-label="Sonraki tarihî durağa git"><span>SONRAKİ DURAK</span> →</button>
+    </div>
+    <div class="chronology">
+      <div class="chronology-head"><span>02 / FİZİKSEL KRONOLOJİ EKSENİ</span><span id="cw-interval">BAŞLANGIÇ</span></div>
+      <label class="sr-only" for="cw-slider">MÖ 12.000 ile 3000 arasındaki yıl konumu</label>
+      <input type="range" id="cw-slider" min="0" max="10000" value="0" step="1">
+      <div class="year-ticks"><span>MÖ 12.000</span><span>MÖ 6.000</span><span>1</span><span>2026</span><span>3000</span></div>
+      <p>Bu kaydırıcı <strong>doğrusal takvim mesafesini</strong> temsil eder. Olaylar eşit aralıklarla yerleştirilmez; yakın tarih kayıtları fiziksel olarak birbirine yaklaşır.</p>
+    </div>
+    <div class="event-section">
+      <div class="event-head"><span>03 / KRONOLOJİ KAPILARI</span><span>20 KAYIT</span></div>
+      <div class="event-rail" id="cw-events" role="group" aria-label="Tarihî duraklar"></div>
+    </div>
+  </section>
+  <aside class="archive" aria-live="polite">
+    <div class="archive-intro"><div class="archive-seal">✧</div><div><span>UZAK ARŞİVDEN KURGUSAL REHBER</span><h2>ARŞİV ZEKÂ <b>Ω-9</b></h2></div></div>
+    <p class="guide-voice" id="cw-voice">Kaşif, zamanın içinde gördüğün her iz üç soruya cevap vermeli: Ne biliyoruz? Nasıl biliyoruz? Neyi bilmiyoruz?</p>
+    <div class="archive-divider"></div>
+    <div class="archive-meta"><span id="cw-category">İNSAN / İKLİM</span><span id="cw-precision">YAKLAŞIK</span></div>
+    <h3 id="cw-title">Buzul çağından yeni dünyaya</h3>
+    <p id="cw-description">Geç buzul döneminden Holosen'e geçiş tek bir yılda olmadı.</p>
+    <div class="evidence-level" id="cw-evidence-level"><i></i><span>ÇIKARIM / ÇOKLU KANIT</span></div>
+    <div class="fact-block"><span>NEYE DAYANIYOR?</span><p id="cw-proof">Paleoklimat kayıtları, arkeoloji</p></div>
+    <div class="fact-block uncertainty"><span>NEYİ BİLMİYORUZ?</span><p id="cw-unknown">Belirli bir yüz, tam bir gerçek geçmiş görüntüsü mümkün değil.</p></div>
+    <div class="archive-sources"><span>KAYNAK İZLERİ</span><div id="cw-sources">Bu durak için doğrudan kaynak bağlantısı henüz eklenmedi.</div></div>
+    <div class="archive-actions"><button id="cw-speak" type="button">◖ REHBERİ DİNLE</button><a href="./#history">⌕ ANSİKLOPEDİ</a></div>
+    <div class="archive-warning"><b>MODELİN SINIRI</b><p>Koridor tasarımı görseldir. Zaman, bir tünel olarak gözlemlenmez. Özel görelilik ışık hızını ve saatlerin hız farkını açıklar; geçmişte serbestçe gezinmeyi kanıtlamaz.</p></div>
+  </aside>
+</main>
+<section class="research">
+  <div class="research-title"><p class="section-caption">04 / BİLİMSEL ARAŞTIRMA PROTOKOLÜ</p><h2>Gördüğüne değil, <em>kanıtına</em> bak.</h2></div>
+  <div class="research-grid">
+    <article><b>01</b><h3>Kaynaklı olgu</h3><p>Arkeolojik nesne, yazılı kayıt veya cihazla alınan ölçümün varlığı ile bu nesneye ilişkin yorum birbirinden ayrılır.</p></article>
+    <article><b>02</b><h3>Yorum ve belirsizlik</h3><p>Örneğin Göbeklitepe'de dikilitaşlar fiziksel kanıttır. Bir insanın yüzü ve günlük davranışını birebir gösteren video kaydı değildir.</p></article>
+    <article><b>03</b><h3>Gelecek, kesin bilgi değil</h3><p>2050 sonrası bölümler açıkça bilimkurgu veya senaryo olarak gösterilir. Bu görüntüler geleceğin kayıtları değildir.</p></article>
+  </div>
+  <div class="research-link"><a href="./time.html#physics-lab">⚛ IŞIK KONİSİ VE GÖRELİLİK DENEYLERİ ↗</a><a href="./telescope.html#sky-science">✧ ASTRONOMİK GÖZLEM HESAPLARI ↗</a></div>
+</section>
+<footer><span>◈ SIMÜLAKRON / CHRONOWORM Ω-9</span><span>Bilimsel kronoloji · kurgusal yolculuk · doğrulanabilir kaynaklar</span><a href="https://github.com/Tryamaha/Simulakron-lab" target="_blank" rel="noopener">KAYNAK KODU ↗</a></footer>
+</div>
+</body></html>
