@@ -84,11 +84,14 @@ export function instrumentReadout(track,zoom){
  const size=(s.width&&s.height)?s.width+" × "+s.height+" px":"Tarayıcı bildirmedi";
  const fps=Number.isFinite(s.frameRate)?s.frameRate.toFixed(1)+" fps":"Tarayıcı bildirmedi";
  const cap=c.zoom&&Number.isFinite(c.zoom.min)?"Mevcut, aralık "+c.zoom.min+"–"+c.zoom.max+" (optik olduğu garanti değil)":"Erişilemiyor / bildirilmedi";
+ const effective=s.width&&s.height?"Dijital kırpmanın yaklaşık kaynak piksel alanı: "+
+   Math.round(s.width/Math.max(1,zoom))+" × "+Math.round(s.height/Math.max(1,zoom))+" piksel (yeniden örnekleme hariç)\n":"";
  node.textContent=
    "Gerçek kamera akışı: "+size+"\n"+
    "Bildirilen kare hızı: "+fps+"\n"+
    "Tarayıcının zoom yeteneği: "+cap+"\n"+
    "Ekranda uygulanan büyütme: "+Number(zoom).toFixed(1)+"× (CSS dijital kırpma)\n"+
+   effective+
    "Etkin sensör: "+(s.facingMode==="user"?"Ön":s.facingMode==="environment"?"Arka":"Tarayıcı belirtmedi");
 }
 compute();
