@@ -29,6 +29,18 @@ ChronoWorm tüneli fiziksel bir solucan deliğinin geçilebilir olduğunu veya g
 
 ---
 
+## Sentinel Anadolu / Bölgesel Risk Gözlemevi
+
+**[Sentinel Anadolu'yu aç](./sentinel.html)** — Türkiye ve yakın çevresindeki depremler, meteorolojik durumlar ve kamuya açık güvenlik kaynakları.
+
+- **Deprem:** USGS FDSN API, son yedi gün, 33°–44° K / 24°–47° D sınır kutusu, büyüklük filtresi ve kaynak bağlantıları. USGS olayların büyüklük/konum/derinlik tahminlerini güncelleyebilir.
+- **Meteoroloji:** Open-Meteo tahmin modeli; Türkiye ve komşu ülkelerden seçilen şehirlerde sıcaklık, yağış, rüzgâr, hamle. Model verisi resmî MGM MeteoUYARI değildir. MGM resmî bağlantısı ayrıca sunulur.
+- **Askerî ve güvenlik:** Yalnızca kamuya açık MSB, Dışişleri ve afet/havacılık kurumu açıklamalarına kaynak bağlantıları. **Canlı askerî birlik, uçak, gemi veya hassas tesis takip edilmez.** Haber/duyuru otomatik doğrulanmış olay olarak haritaya işlenmez.
+- **Hata davranışı:** API erişim hatasında sıfır olay veya normal hava iddiası üretilmez; “veri alınamadı” denir.
+- **Kullanım:** Deprem ve hava servisleri internet gerektirir. Harita OpenStreetMap/Leaflet kullanır. İçerik bir acil durum alarm sistemi değildir.
+
+Kaynaklar: [USGS](https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php), [USGS FDSN](https://earthquake.usgs.gov/fdsnws/event/1/), [Open-Meteo](https://open-meteo.com/en/docs), [MGM MeteoUYARI](https://www.mgm.gov.tr/meteouyari/turkiye.aspx), [AFAD](https://www.afad.gov.tr/).
+
 ## Bölümler
 
 | Bölüm | Bağlantı | Amaç |
