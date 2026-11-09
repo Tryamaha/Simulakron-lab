@@ -1,0 +1,28 @@
+name: Simulakron Scientific Validation
+on:
+  push:
+    branches: [main]
+    paths:
+      - "science-core.js"
+      - "chrono-data.js"
+      - "co2-annual-data.js"
+      - "tests/**"
+      - ".github/workflows/science.yml"
+  pull_request:
+    paths:
+      - "science-core.js"
+      - "chrono-data.js"
+      - "co2-annual-data.js"
+      - "tests/**"
+jobs:
+  science-tests:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Run physical and chronological model tests
+        run: npm test
