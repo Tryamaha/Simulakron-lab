@@ -39,8 +39,8 @@ function setStop(n){
   $("truth-text").textContent=s.fact;
   $("truth-icon").textContent=s.fiction?"✧":"◉";
   $("stage-evidence").textContent=s.fiction?"✧ GELECEK KURGUSU · TARİHSEL GÖRÜNTÜ DEĞİL":"◈ TARİHSEL DAYANAK · STİLİZE 3D TEMSİL";
-  const viewer=$("scene3d");viewer.src="./assets/"+s.scene+"-scene.gltf";
-  viewer.alt=s.name+" için temsili üç boyutlu sahne";
+  $("stage-hero-year").textContent=s.year<0?"MÖ "+Math.abs(s.year).toLocaleString("tr-TR"):String(s.year);
+  $("stage-kind").textContent=s.fiction?"KURGU / SENARYO":"TARİHSEL İNCELEME / ARŞİV";
   document.dispatchEvent(new CustomEvent("simulakron:time-stop",{detail:{year:s.year,fiction:!!s.fiction,name:s.name}}));
   [...stopsBox.children].forEach((x,i)=>{x.classList.toggle("active",i===index);x.setAttribute("aria-pressed",String(i===index))});
   if(location.hash!=="#physics-lab"&&location.hash.slice(1)!==String(index))history.replaceState(null,"","#"+index);
@@ -67,8 +67,5 @@ $("play-scene").addEventListener("click",()=>{
   speechSynthesis.speak(text);
 });
 $("replay").addEventListener("click",()=>location.assign("./?tunnel=1"));
-$("scene3d").addEventListener("ar-status",e=>{
-  if(e.detail.status==="failed")alert("AR açılamadı. iPhone Safari'de ve AR destekli cihazda tekrar dene.");
-});
 setStop(Number.isInteger(Number(location.hash.slice(1)))&&location.hash?Number(location.hash.slice(1)):0);
 if(location.hash==="#physics-lab")setTimeout(()=>document.getElementById("physics-lab")?.scrollIntoView({behavior:"smooth",block:"start"}),200);
