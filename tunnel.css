@@ -22,3 +22,5 @@
 .tunnel-fab{position:fixed;z-index:50;right:16px;bottom:calc(18px + env(safe-area-inset-bottom));background:#e0b677;border:1px solid #edd1a0;color:#142c34;border-radius:100px;padding:13px 18px;box-shadow:0 7px 28px #0008;font-size:12px;font-weight:900;letter-spacing:.05em;cursor:pointer}
 .tunnel-fab:hover{filter:brightness(1.1)}
 @media(max-width:580px){.tunnel-fab{font-size:11px;padding:11px 13px;right:10px;bottom:calc(12px + env(safe-area-inset-bottom))}}
+
+.tg-metric{display:block;margin:16px auto 2px;max-width:460px;color:#d4ebd8;font-size:11px;letter-spacing:.08em;font-weight:800;border:1px solid #68918c;background:#12303ccb;border-radius:8px;padding:10px 11px;line-height:1.6}
