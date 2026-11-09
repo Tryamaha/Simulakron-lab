@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="./chrono.css">
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.182.0/build/three.module.js"}}</script>
 <script type="module" src="./chrono.js"></script>
+<script type="module" src="./chrono-earth.js"></script>
 </head>
 <body>
 <div class="app">
@@ -85,6 +86,26 @@
     <article><b>03</b><h3>Gelecek, kesin bilgi değil</h3><p>2050 sonrası bölümler açıkça bilimkurgu veya senaryo olarak gösterilir. Bu görüntüler geleceğin kayıtları değildir.</p></article>
   </div>
   <div class="research-link"><a href="./time.html#physics-lab">⚛ IŞIK KONİSİ VE GÖRELİLİK DENEYLERİ ↗</a><a href="./telescope.html#sky-science">✧ ASTRONOMİK GÖZLEM HESAPLARI ↗</a></div>
+</section>
+<section class="earth-science" id="earth-science">
+ <div class="earth-title"><div><p class="section-caption">05 / PALEOKLİMATOLOJİ + ATMOSFER</p><h2>Dünya da <em>zamanla değişir.</em></h2><p>Seçtiğin zamanın bilinen ölçümü varsa gösteriyoruz. Olmayan yıla veri uydurmuyoruz.</p></div><div class="earth-badge">NOAA + USGS<br>GÖZLEM VERİSİ</div></div>
+ <div class="earth-grid">
+  <article class="co2-card">
+    <div class="earth-caption">ATMOSFERİK KARBONDİOKSİT · KÜRESEL YILLIK ORTALAMA</div>
+    <div class="co2-main"><div><strong id="co2-number">425,62</strong><span>ppm</span></div><small id="co2-year">2025 · ÖN VERİ</small></div>
+    <svg id="co2-graph" viewBox="0 0 660 260" role="img" aria-label="NOAA 1979-2025 gözlemleri: yıllık küresel karbondioksit derişimi">
+      <g id="co2-grid"></g><path id="co2-fill" d="" fill="#87c6a2" fill-opacity=".10"></path><path id="co2-path" d="" fill="none" stroke="#99dfc2" stroke-width="3.5" stroke-linecap="round"></path><g id="co2-dots"></g>
+      <g fill="#a8c1be" font-size="12" font-family="system-ui,sans-serif"><text x="55" y="253">1979</text><text x="590" y="253">2025</text><text x="16" y="26">ppm</text></g>
+    </svg>
+    <p id="co2-year-note">Küresel yıllık ölçümler 1979'dan başlar. 2025 değeri ön veridir, revize edilebilir.</p>
+    <a href="https://gml.noaa.gov/ccgg/trends/gl_data.html" target="_blank" rel="noopener noreferrer">NOAA · Küresel CO₂ gözlem verisi ↗</a>
+  </article>
+  <aside class="climate-side">
+    <div><span>SEÇİLEN YILIN VERİ DURUMU</span><strong id="climate-selected-year">MÖ 12.000</strong><p id="climate-selected-note">Bu yıla ait NOAA yıllık küresel ölçümü yok. Uydurulmuş değer kullanılmıyor.</p></div>
+    <div><span>BUZUL ÇAĞI KARŞILAŞTIRMASI</span><strong>~20.000 yıl önce</strong><p>Son Buzul Maksimumu sırasında deniz seviyesi günümüzden 120 metreden daha düşüktü. Bu <b>MÖ 12.000 yılının ölçümü değildir.</b></p><a href="https://www.usgs.gov/faqs/how-does-present-glacier-extent-and-sea-level-compare-extent-glaciers-and-global-sea-level" target="_blank" rel="noopener noreferrer">USGS · Son Buzul Maksimumu ↗</a></div>
+    <div><span>SANAYİ ÖNCESİ KARŞILAŞTIRMA</span><strong>~278 ppm</strong><p>Yaklaşık 1750 için tarihsel kestirim. NOAA'nın 1979 sonrası doğrudan küresel gözlem serisiyle aynı türden bir yıllık ölçüm değildir.</p><a href="https://www.climate.gov/news-features/understanding-climate/climate-change-atmospheric-carbon-dioxide" target="_blank" rel="noopener noreferrer">NOAA Climate.gov ↗</a></div>
+  </aside>
+ </div>
 </section>
 <footer><span>◈ SIMÜLAKRON / CHRONOWORM Ω-9</span><span>Bilimsel kronoloji · kurgusal yolculuk · doğrulanabilir kaynaklar</span><a href="https://github.com/Tryamaha/Simulakron-lab" target="_blank" rel="noopener">KAYNAK KODU ↗</a></footer>
 </div>
