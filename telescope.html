@@ -35,13 +35,13 @@
     <button id="flip" type="button" title="Ön/arka kamera">⇄</button>
     <button id="snap" type="button" title="Keşif fotoğrafı">▣ <span>Fotoğraf</span></button>
    </div>
-   <div class="warning"><b>GERÇEK × SİMÜLASYON:</b> Yalnızca kameranın yakaladığı görüntü canlıdır. Yıldızlar, geçmiş, gelecek, tarama verileri ve renk filtreleri temsilidir. Dürbün duvarın arkasını veya kameranın çözünürlüğünün ötesindeki detayları göstermez.</div>
+   <div class="warning"><b>GERÇEK × SİMÜLASYON:</b> Yalnızca kameranın yakaladığı görüntü canlıdır. Yıldızların gök koordinatları yaklaşık hesaplanır; harita kamera doğrultusuna bağlı değildir. Geçmiş, gelecek, tarama işaretleri ve renk filtreleri temsilidir. Dürbün duvarın arkasını veya kameranın çözünürlüğünün ötesindeki detayları göstermez.</div>
   </section>
   <aside class="controls">
    <div class="label">◎ KEŞİF PROTOKOLLERİ</div><h2>Gördüğünün <i>ötesine.</i></h2>
    <div class="modes" role="group" aria-label="Gözlem modu">
      <button type="button" class="mode active" data-mode="surface" aria-pressed="true">⌖ <b>Yeryüzü</b><small>Canlı kamera</small></button>
-     <button type="button" class="mode" data-mode="sky" aria-pressed="false">✧ <b>Gökyüzü</b><small>Sanal yıldız atlası</small></button>
+     <button type="button" class="mode" data-mode="sky" aria-pressed="false">✧ <b>Gökyüzü</b><small>Hesaplanan gök haritası</small></button>
      <button type="button" class="mode" data-mode="micro" aria-pressed="false">⌕ <b>Mikro</b><small>Dijital büyütme</small></button>
      <button type="button" class="mode" data-mode="time" aria-pressed="false">◷ <b>Zaman</b><small>Dönem katmanı</small></button>
    </div>
@@ -51,7 +51,7 @@
    <div class="inputrow"><label for="years">ZAMAN MERCEĞİ</label><output id="year-val">2026</output></div>
    <input id="years" type="range" min="0" max="8" step="1" value="5" aria-label="Simülasyon yılı">
    <div class="ruler"><span>MÖ 12000</span><span>2026</span><span>3000</span></div>
-   <div class="button-strip"><button id="night" type="button" aria-pressed="false">◐ Gece Görüşü</button><button id="grid" type="button" aria-pressed="true">⌗ Izgara Açık</button></div>
+   <div class="button-strip"><button id="night" type="button" aria-pressed="false">◐ Yeşil Görüntü Filtresi</button><button id="grid" type="button" aria-pressed="true">⌗ Izgara Açık</button></div>
    <div class="guide"><div class="guide-top"><span>✧</span><div><small>KURGUSAL ZAMAN REHBERİ</small><strong>ULTRA ZEKÂ Ω</strong></div></div><p id="guide-text">Kaşif, 3000 yılının dürbününe hoş geldin. Önce gözlem yap, sonra görüntünün hangi kısmının simülasyon olduğunu sorgula.</p><div class="data-row"><b id="info-level">SEVİYE 01 · GÖZLEM</b><b id="origin">GERÇEK KAMERA</b></div></div>
 
 <section class="science-panel" id="sky-science">
